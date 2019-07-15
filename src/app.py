@@ -10,7 +10,7 @@ def create_app(env_name):
     # app initiliazation
     app = Flask(__name__)
 
-    app.config.from_object(app_config['development'])
+    app.config.from_object(app_config[env_name])
 
     @app.route('/', methods=['GET'])
     def get_all():
