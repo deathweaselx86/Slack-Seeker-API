@@ -1,2 +1,4 @@
 venv_flask
 .pyc
+
+__pycache__/
