@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "src.app",
+        "profile_name": "DANGER-devel",
+        "project_name": "src",
+        "runtime": "python3.7",
+        "s3_bucket": "zappa-5pmktq2y6",
+	"aws_region": "us-east-2"
+    }
+}
