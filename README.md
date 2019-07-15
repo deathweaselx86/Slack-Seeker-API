@@ -7,4 +7,5 @@ How to install:
 3. Create virtual environment venv_flask using "python3 -m venv venv_flask"
 4. Activate virtual environment using source venv_flask/bin/activate
 5. Install dependencies using pip3 install -r requirements.txt
-6. Run the flask app using "python3 run.py"
+6. Run command "export FLASK_ENV=development"
+7. Run the flask app using "python3 run.py"
