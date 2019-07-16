@@ -17,3 +17,8 @@ def get_all():
     return "hello world"
 
 
+@app.route('/testjson', methods=['GET'])
+def get_json():
+    with open(os.path.join(sys.path[0], "app/data/list.json"), "r") as f:
+        data = json.load(f)
+    return jsonify(data)
