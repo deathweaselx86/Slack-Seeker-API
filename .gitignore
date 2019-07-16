@@ -2,3 +2,4 @@ venv_flask
 .pyc
 .env
 __pycache__/
+env
