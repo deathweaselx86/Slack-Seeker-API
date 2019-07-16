@@ -25,6 +25,7 @@ def get_payload():
 
     payload = request.get_data()
     response = flask.make_response(payload, 200)
+    return response
 
 @app.route('/testjson', methods=['GET','POST'])
 def get_json():
