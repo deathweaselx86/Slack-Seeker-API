@@ -31,13 +31,13 @@ def get_json():
     # we should catch if there is no text in the command e.g. "/command <text>" where <text> is empty
     # because that is the case where it could just be a dict in a dict
 
-    resp = {'key':parse_qs(payload, encoding='utf-8')}
+    resp = {'key': parse_qs(payload, encoding='utf-8')}
+    parsed_payload = resp['key']
     #response = flask.make_response(jsonify(resp),200)
 
     # repeat for each command, we can fix the structure later
-    if payload['command'] == '/seeker':
-
-        response_payload = u'Display seeker help if no parameter is provided...'
+    if parsed_payload['command'] == '/seeker':
+        response_payload = u'Display seeker help if no parameter is provided... you provided the parameter {}'.format(parsed_payload['command'])
 
     '''
     # testing shim
@@ -58,6 +58,7 @@ def get_json():
 
     # if command not recognized
     else:
+        # TODO: this probably fails due being dict(dict( instead of dict(list(dict -- handle this!
         response_payload = u'Invalid command: {}'.format(parsed_payload['command'])
 
     response = flask.make_response(payload, 200)
