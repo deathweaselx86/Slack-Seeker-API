@@ -23,8 +23,7 @@ def get_all():
 def get_json():
 
     dirname = os.path.dirname(__file__)
-    payload = request.get_json(force=True)
-
+    payload = request.get_data(as_text=True)
     response = flask.make_response(payload,200)
 
     response.headers['Access-Control-Allow-Origin'] = '*'
