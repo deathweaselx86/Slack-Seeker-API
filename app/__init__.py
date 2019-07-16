@@ -36,8 +36,6 @@ def get_json():
     #response = flask.make_response(jsonify(resp),200)
 
     # repeat for each command, we can fix the structure later
-    if parsed_payload['command'] == '/seeker':
-        response_payload = u'Display seeker help if no parameter is provided... you provided the parameter {}'.format(parsed_payload['command'])
 
     '''
     # testing shim
@@ -54,14 +52,15 @@ def get_json():
         help_json_template = json_template.seeker_help()
         response_payload = jsonify(taglist)
     '''
-
+    if parsed_payload['command'] == '/seeker':
+        response_payload = u'Display seeker help if no parameter is provided... you provided the parameter {}'.format(parsed_payload['command'])
 
     # if command not recognized
     else:
         # TODO: this probably fails due being dict(dict( instead of dict(list(dict -- handle this!
         response_payload = u'Invalid command: {}'.format(parsed_payload['command'])
 
-    response = flask.make_response(payload, 200)
+    response = flask.make_response(response_payload, 200)
 
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Content-Type'] = 'application/json'
