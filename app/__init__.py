@@ -3,6 +3,7 @@ from flask import jsonify
 from app.config import app_config
 import json
 import os
+import flask
 import sys
 
 
@@ -20,6 +21,10 @@ def get_all():
 @app.route('/testjson', methods=['GET'])
 def get_json():
     dirname = os.path.dirname(__file__)
+
     with open(os.path.join(dirname+'/data/list.json'), "r") as f:
         data = json.load(f)
-    return jsonify(data)
+    response = flask.make_response(jsonify(data),200)
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Content-Type'] = 'application/json'
+    return response
