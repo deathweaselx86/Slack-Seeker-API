@@ -24,10 +24,10 @@ def get_all():
 def get_json():
 
     dirname = os.path.dirname(__file__)
-    print(request.args)
     payload = request.get_data()
-    print(parse_qs(payload, encoding='utf-8'))
-    response = flask.make_response(jsonify(parse_qs(payload, encoding='utf-8')),200)
+    resp = {'key':parse_qs(payload, encoding='utf-8')}
+    print(jsonify(resp['key']))
+    response = flask.make_response(jsonify(resp),200)
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Content-Type'] = 'application/json'
 
