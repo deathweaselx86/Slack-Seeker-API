@@ -3,3 +3,6 @@ venv_flask
 .env
 __pycache__/
 env
+
+.idea/
+*.swp
