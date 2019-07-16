@@ -71,7 +71,6 @@ jmespath==0.9.4
 jsonschema==3.0.1
 lookerapi==3.0.0
 Mako==1.0.13
--e git+https://github.com/mapswipe/python-mapswipe-workers.git@061844e69492f6a59c3c069164d3d89c897128d7#egg=mapswipe_workers
 MarkupSafe==1.1.1
 marshmallow==2.14.0
 marshmallow-sqlalchemy==0.13.2
