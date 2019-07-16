@@ -22,7 +22,7 @@ def get_all():
 @app.route('/testjson', methods=['GET','POST'])
 def get_json():
     dirname = os.path.dirname(__file__)
-    payload = request.get_data()
+    payload = request.get_json()
     with open(os.path.join(dirname+'/data/list.json'), "r") as f:
         data = json.load(f)
     response = flask.make_response(jsonify(data),200)
