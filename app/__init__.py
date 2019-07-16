@@ -27,20 +27,19 @@ def get_payload():
     response = flask.make_response(payload, 200)
     return response
 
+    return response
+
 @app.route('/testjson', methods=['GET','POST'])
 def get_json():
 
-    '''
-
     payload = request.get_data()
-    payload = "text=&response_url=https%3A%2F%2Fhooks.slack.com%2Fcommands%2FT02V23TD2%2F685210277555%2FYXY2zl3A0IzgR1IDHb1ir7LW&trigger_id=698755172662.2988129444.d37a821d8c75cbdf6e8abd597077d564 "
+    payload = "token=nB2bAolyYp4uDT0hoqUyfVyv&team_id=T02V23TD2&team_domain=optimizely&channel_id=CLF247QJK&channel_name=hackweek2019-seeker&user_id=UGBCTP0AZ&user_name=trent.robbins&command=%2Fseeker-payload&text=&response_url=https%3A%2F%2Fhooks.slack.com%2Fcommands%2FT02V23TD2%2F690346166849%2FqeJF824OcWVD8tuLhmvwlYvt&trigger_id=696685010704.2988129444.7f616d9c52435a42645e726f26a42269"
 
     # resp wrapped in dict because it's sometimes an array
     # we should catch if there is no text in the command e.g. "/command <text>" where <text> is empty
     # because that is the case where it could just be a dict in a dict
 
     resp = {'key': parse_qs(payload, encoding='utf-8')}
-    parsed_payload = resp['key']
     #response = flask.make_response(jsonify(resp),200)
 
     # repeat for each command, we can fix the structure later
@@ -48,6 +47,7 @@ def get_json():
     # testing shim
     parsed_payload = {'command': 'help'}
 
+    '''
     # repeat for each command, we can fix the structure later
     if parsed_payload['command'] == 'tags':
         tag_json_template = json_template.seeker_tags()
@@ -58,22 +58,23 @@ def get_json():
     if parsed_payload['command'] == 'help':
         help_json_template = json_template.seeker_help()
         response_payload = jsonify(taglist)
-
-    if parsed_payload['command'] == '/seeker':
-        response_payload = u'Display seeker help if no parameter is provided... you provided the parameter {}'.format(parsed_payload['command'])
-
+    '''
+    '''
     # if command not recognized
     else:
         # TODO: this probably fails due being dict(dict( instead of dict(list(dict -- handle this!
         response_payload = u'Invalid command: {}'.format(parsed_payload['command'])
+    '''
 
+    if resp['key']['command'] == '/seeker':
+        response_payload = u'Display seeker help if no parameter is provided... you provided the parameter {}'.format(parsed_payload['command'])
+    else:
+        # TODO: this probably fails due being dict(dict( instead of dict(list(dict -- handle this!
+        response_payload = u'Invalid command: {}'.format(parsed_payload['command'])
 
     response = flask.make_response(response_payload, 200)
 
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Content-Type'] = 'application/json'
-
-    '''
-    response = "test"
 
     return response
