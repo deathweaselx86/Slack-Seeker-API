@@ -21,3 +21,4 @@ class SlackMessage(db.Model):
     # probably too many characters, but better safe than sorry
     url = db.Column(db.String(512), unique=True, nullable=False)
     description = db.Column(db.String(512), nullable=False)
+    message_text = db.Column(db.String(1000), unique=True, nullable=False)
