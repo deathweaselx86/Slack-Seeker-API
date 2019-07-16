@@ -18,7 +18,7 @@ def get_all():
     return "hello world"
 
 
-@app.route('/testjson', methods=['GET'])
+@app.route('/testjson', methods=['GET','POST'])
 def get_json():
     dirname = os.path.dirname(__file__)
 
