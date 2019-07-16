@@ -6,19 +6,14 @@ import os
 import sys
 
 
-def create_app(env_name):
-    """
-    Create app
-    """
-
-    # app initiliazation
-    app = Flask(__name__)
-
-    app.config.from_object(app_config[env_name])
-
-    @app.route('/', methods=['GET'])
-    def get_all():
-        return "hello world"
+# app initiliazation
+app = Flask(__name__)
+env_name = os.getenv('FLASK_ENV')
+app.config.from_object(app_config[env_name])
 
 
-    return app
+@app.route('/', methods=['GET'])
+def get_all():
+    return "hello world"
+
+
