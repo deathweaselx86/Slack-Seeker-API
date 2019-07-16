@@ -21,11 +21,13 @@ def get_all():
 
 @app.route('/testjson', methods=['GET','POST'])
 def get_json():
+
     dirname = os.path.dirname(__file__)
-    payload = request.get_json()
-    with open(os.path.join(dirname+'/data/list.json'), "r") as f:
-        data = json.load(f)
-    response = flask.make_response(jsonify(data),200)
+    payload = request.get_json(force=True)
+
+    response = flask.make_response(payload,200)
+
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Content-Type'] = 'application/json'
-    return payload
+
+    return response
