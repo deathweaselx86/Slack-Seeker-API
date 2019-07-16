@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import jsonify
-from src.config import app_config
+from app.config import app_config
 import json
 import os
 import sys
