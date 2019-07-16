@@ -18,10 +18,7 @@ def create_app(env_name):
 
     @app.route('/', methods=['GET'])
     def get_all():
-
-        with open(os.path.join(sys.path[0], "src/data/list.json"), "r") as f:
-            data =json.load(f)
-        return jsonify(data)
+        return "hello world"
 
 
     return app
