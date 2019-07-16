@@ -34,8 +34,14 @@ def get_json():
     resp = {'key':parse_qs(payload, encoding='utf-8')}
     #response = flask.make_response(jsonify(resp),200)
 
+    # repeat for each command, we can fix the structure later
+    if payload['command'] == '/seeker':
+
+        response_payload = u'Display seeker help if no parameter is provided...'
+
+    '''
     # testing shim
-    parsed_payload = {'command': 'tags'}
+    parsed_payload = {'command': 'help'}
 
     # repeat for each command, we can fix the structure later
     if parsed_payload['command'] == 'tags':
@@ -47,11 +53,12 @@ def get_json():
     if parsed_payload['command'] == 'help':
         help_json_template = json_template.seeker_help()
         response_payload = jsonify(taglist)
+    '''
 
 
     # if command not recognized
     else:
-        response_payload = u"Invalid command: {}".format(parsed_payload['command'])
+        response_payload = u'Invalid command: {}'.format(parsed_payload['command'])
 
     response = flask.make_response(payload, 200)
 
