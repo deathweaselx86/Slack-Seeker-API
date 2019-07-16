@@ -29,6 +29,8 @@ def get_payload():
 @app.route('/testjson', methods=['GET','POST'])
 def get_json():
 
+    '''
+
     payload = request.get_data()
     payload = "text=&response_url=https%3A%2F%2Fhooks.slack.com%2Fcommands%2FT02V23TD2%2F685210277555%2FYXY2zl3A0IzgR1IDHb1ir7LW&trigger_id=698755172662.2988129444.d37a821d8c75cbdf6e8abd597077d564 "
 
@@ -42,7 +44,6 @@ def get_json():
 
     # repeat for each command, we can fix the structure later
 
-    '''
     # testing shim
     parsed_payload = {'command': 'help'}
 
@@ -56,7 +57,7 @@ def get_json():
     if parsed_payload['command'] == 'help':
         help_json_template = json_template.seeker_help()
         response_payload = jsonify(taglist)
-    '''
+
     if parsed_payload['command'] == '/seeker':
         response_payload = u'Display seeker help if no parameter is provided... you provided the parameter {}'.format(parsed_payload['command'])
 
@@ -65,9 +66,13 @@ def get_json():
         # TODO: this probably fails due being dict(dict( instead of dict(list(dict -- handle this!
         response_payload = u'Invalid command: {}'.format(parsed_payload['command'])
 
+
     response = flask.make_response(response_payload, 200)
 
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Content-Type'] = 'application/json'
+
+    '''
+    response = "test"
 
     return response
