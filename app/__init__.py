@@ -66,7 +66,7 @@ def get_json():
         response_payload = u'Invalid command: {}'.format(parsed_payload['command'])
     '''
 
-    response = flask.make_response(response_payload, 200)
+    response = response_payload
     response.headers['Access-Control-Allow-Origin'] = '*'
 
     return response
