@@ -12,8 +12,17 @@ def isValid(resp):
         firstElem = payload[0]
         if firstElem[0] != '\"':
             return False, "missing_starting_quote"
-        if firstElem[-1] == '\"':
-            return True, None
+        for elem in payload:
+            if elem[-1] == '\"':
+                return True, None
+        return False, "missing_ending_quote"
+    if command == "save":
+        if payload:
+            pass    # TODO: Implement save with multiple parameters
+        return True, None
+        
+        
+        
 
 
 
