@@ -67,8 +67,6 @@ def get_json():
     '''
 
     response = flask.make_response(response_payload, 200)
-
     response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Content-Type'] = 'application/json'
 
     return response
