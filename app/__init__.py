@@ -15,11 +15,13 @@ app.config.from_object(env_conf.app_config[env_name])
 
 db = SQLAlchemy(app)
 
-import app.models
-#import app.views
 from app import helper
 from app import json_templates
 from app import text_parser
+
+from app import models
+#import app.models
+#import app.views
 
 @app.route('/', methods=['GET'])
 def get_all():
