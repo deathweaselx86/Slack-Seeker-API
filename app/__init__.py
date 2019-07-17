@@ -3,6 +3,7 @@ from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 from app.config import app_config
+from app.helper import saveMessage
 import json
 import os
 import flask
@@ -64,9 +65,9 @@ def get_json():
         tokens = parsed_payload['payload']
         message_Url = tokens[0]
         description = tokens[1]
-        tags = tokens[2]
+        tags = [tokens[2]]
 
-        # saveMessage(message_Url, description, tags)
+        saveMessage(message_Url, description,"", tags)
         response_payload = jsonify({"message":"Done saving the terms"})
 
 
