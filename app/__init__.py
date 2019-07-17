@@ -8,6 +8,7 @@ import os
 import flask
 from flask import request
 from urllib.parse import parse_qs
+from helper import saveMessage
 import sys
 import app.text_parser as text_parser
 
@@ -58,6 +59,16 @@ def get_json():
     elif parsed_payload['command'] == 'tags':
         tag_json_template = json_templates.seeker_tags()
         response_payload = jsonify(tag_json_template)
+
+    elif parsed_payload['command'] == 'save':
+        tokens = parsed_payload['payload']
+        message_Url = tokens[0]
+        description = tokens[1]
+        tags = tokens[2]
+
+        saveMessage(message_Url, description, tags)
+        response_payload = {"message": "Done saving the terms"}
+
 
     '''
     # if command not recognized
