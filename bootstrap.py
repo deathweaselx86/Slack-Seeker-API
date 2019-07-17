@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from app import db
-from models import *
+from app.models.models import *
 
 db.create_all()
 
