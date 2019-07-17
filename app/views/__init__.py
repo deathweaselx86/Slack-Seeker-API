@@ -3,19 +3,21 @@ from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 from app.config import app_config
-from app.helper import saveMessage
 import json
 import os
 import flask
 from flask import request
 from urllib.parse import parse_qs
-# from helper import saveMessage
+
 import sys
 import app.text_parser as text_parser
 
 import json_templates
 
-from app import models
+#from app.helper import saveMessage
+# from helper import saveMessage
+from app import app, models, db, helper
+
 
 @app.route('/', methods=['GET'])
 def get_all():
@@ -62,7 +64,7 @@ def get_json():
         description = tokens[1]
         tags = [tokens[2]]
 
-        saveMessage(message_Url, description,"", tags)
+        helper.saveMessage(message_Url, description,"", tags)
         response_payload = jsonify({"message":"Done saving the terms"})
 
 
