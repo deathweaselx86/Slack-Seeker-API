@@ -57,6 +57,7 @@ def get_json():
 
     # repeat for each command, we can fix the structure later
     elif parsed_payload['command'] == 'tags':
+        session = Session()
         tag_list = session.query(Tag.name).all()
         tag_json_template = json_templates.seeker_tags(tag_list)
         response_payload = jsonify(tag_json_template)
