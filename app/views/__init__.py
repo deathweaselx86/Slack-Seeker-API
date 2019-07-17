@@ -16,8 +16,8 @@ import json_templates
 
 #from app.helper import saveMessage
 # from helper import saveMessage
-from app import app, models, db, helper
-
+from app import app, models, db
+import helper
 
 @app.route('/', methods=['GET'])
 def get_all():
