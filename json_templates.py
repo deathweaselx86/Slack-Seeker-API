@@ -34,6 +34,19 @@ def seeker_save_desc():
 def seeker_save_tag():
     return '''{"type": "section","text": {"type": "mrkdwn","text": "Great! Now assign a tag to this Slack message.If the tag hasn't been created yet, we'll create it for you."}},]'''
 
+def seeker_not_found():
+    return {
+        "attachments": [{
+            "blocks": [{
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "Oops, I don't recognize that command. Please type `/seeker help` for a list of commands and parameters."
+                }
+            }]
+        }]
+    }
+
 ### Example for how a Slack message's information should be displayed
 # {
 #     "type": "section",

@@ -59,12 +59,10 @@ def get_json():
         tag_json_template = json_templates.seeker_tags()
         response_payload = jsonify(tag_json_template)
 
-    '''
     # if command not recognized
     else:
-        # TODO: this probably fails due being dict(dict( instead of dict(list(dict -- handle this!
-        response_payload = u'Invalid command: {}'.format(parsed_payload['command'])
-    '''
+        not_found_template = json_templates.seeker_not_found()
+        response_payload = jsonify(not_found_template)
 
     response = response_payload
     response.headers['Access-Control-Allow-Origin'] = '*'
