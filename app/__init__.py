@@ -9,6 +9,7 @@ import flask
 from flask import request
 from urllib.parse import parse_qs
 import sys
+import parser
 
 import json_templates
 
@@ -44,6 +45,8 @@ def get_json():
 
     resp = {'key': parse_qs(payload)}
     #response = flask.make_response(jsonify(resp),200)
+
+    parsed_payload = parser.parse(request.form['text'])
 
     # repeat for each command, we can fix the structure later
 
