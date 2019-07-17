@@ -12,7 +12,7 @@ import sys
 import app.text_parser as text_parser
 
 import json_templates
-import session
+from flask import session
 
 
 # app initiliazation
