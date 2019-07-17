@@ -1,5 +1,5 @@
 import queue as Q
-from models.models import *
+from app.models.models import *
 
 # def scoreMessage():
 #     q = Q.PriorityQueue()
