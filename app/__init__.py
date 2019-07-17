@@ -23,6 +23,9 @@ from app import models
 #import app.models
 #import app.views
 
+# leave at bottom of imports or avoid app.<whatever> after this due to python3 imports
+from app import app
+
 @app.route('/', methods=['GET'])
 def get_all():
     return "hello world"

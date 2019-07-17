@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from app import db
+from app import app, db
 from app.models import Tag, SlackMessage
 
 db.create_all()
