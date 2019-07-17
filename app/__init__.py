@@ -12,6 +12,7 @@ import sys
 import app.text_parser as text_parser
 
 import json_templates
+import session
 
 
 # app initiliazation
@@ -56,7 +57,8 @@ def get_json():
 
     # repeat for each command, we can fix the structure later
     elif parsed_payload['command'] == 'tags':
-        tag_json_template = json_templates.seeker_tags()
+        tag_list = session.query(Tag.name).all()
+        tag_json_template = json_templates.seeker_tags(tag_list)
         response_payload = jsonify(tag_json_template)
 
     '''
@@ -70,3 +72,8 @@ def get_json():
     response.headers['Access-Control-Allow-Origin'] = '*'
 
     return response
+
+class Tag(db.Model):
+    __tablename__='tags'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
