@@ -4,6 +4,10 @@ Easy shared search and annotations for the best slack messages.
 
 This REPO serves as the API for the Slack seek.
 
+## Run Locally
+
+- `FLASK_ENV=development FLASK_APP=bootstrap.py  DATABASE_URL=sqlite:////tmp/test1.db flask shell` to initialize database
+- `FLASK_ENV=development FLASK_APP=app/helper.py  DATABASE_URL=sqlite:////tmp/test1.db flask shell` to run the helper script
 
 ## TODOs
 

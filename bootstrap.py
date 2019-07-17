@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from app import db
-from app.models.models import *
+from app.models import Tag, SlackMessage
 
 db.create_all()
 
@@ -15,5 +15,3 @@ db.session.add(message)
 message.tags.append(tag)
 
 db.session.commit()
-
-

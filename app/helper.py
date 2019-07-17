@@ -49,4 +49,4 @@ def saveMessage(url, description, message_text, tags):
     db.session.add(new_message)
     db.session.commit()
 
-saveMessage("www.abc.com", "No config secrets file", "I cannot find any config.secrets file in the repo", ["monolith", "backend"])
+# saveMessage("www.abc.com", "No config secrets file", "I cannot find any config.secrets file in the repo", ["monolith", "backend"])
