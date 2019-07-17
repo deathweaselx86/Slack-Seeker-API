@@ -51,20 +51,19 @@ def get_json():
     # repeat for each command, we can fix the structure later
 
     # testing shim
-    parsed_payload = {'command': 'help'}
+    # parsed_payload = {'command': 'help'}
 
-    '''
     # repeat for each command, we can fix the structure later
-    if parsed_payload['command'] == 'tags':
+    if parsed_payload['command'] == 'help' or parsed_payload['command'] == None:
+        help_json_template = json_template.seeker_help()
+        response_payload = jsonify(help_json_template)
+
+    # repeat for each command, we can fix the structure later
+    elif parsed_payload['command'] == 'tags':
         tag_json_template = json_template.seeker_tags()
         tag_list = ['tag1', 'tag2', 'tag3']
         response_payload = jsonify(tag_json_template)
 
-    # repeat for each command, we can fix the structure later
-    if parsed_payload['command'] == 'help':
-        help_json_template = json_template.seeker_help()
-        response_payload = jsonify(taglist)
-    '''
     '''
     # if command not recognized
     else:
