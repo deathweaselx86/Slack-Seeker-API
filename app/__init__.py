@@ -67,7 +67,7 @@ def get_json():
         tags = tokens[2]
 
         # saveMessage(message_Url, description, tags)
-        response_payload = {"message": "Done saving the terms"}
+        response_payload = jsonify({"message":"Done saving the terms"})
 
 
     '''
