@@ -1,7 +1,8 @@
 venv_flask
-.pyc
+*.pyc
+*.pyo
 .env
-__pycache__/
+__pycache__
 env
 
 .idea/
