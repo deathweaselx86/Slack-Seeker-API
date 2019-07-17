@@ -17,20 +17,20 @@ from models.models import *
 #         Message("JS-SDK having problem in build pipeline", 0, ["sdk", "fullstack", "javascript"])
 #     ]
     
-#     for msg in messages:
-#         text = msg.text.lower()
-#         tags = msg.tags
-#         for term in terms:
-#             if term in text:
-#                 msg.score += 1
-#             for tag in tags:
-#                 if term in tag or tag in term:
-#                     msg.score += 5
-#         q.put(msg)
+    for msg in messages:
+        text = msg.text.lower()
+        tags = msg.tags
+        for term in terms:
+            if term in text:
+                msg.score += 1
+            for tag in tags:
+                if term in tag or tag in term:
+                    msg.score += 5
+        q.put(msg)
     
-#     while not q.empty():
-#         cur = q.get()
-#         print('Message: {}, score: {}, tags: {}'.format(cur.text, cur.score, cur.tags))
+    while not q.empty():
+        cur = q.get()
+        print('Message: {}, score: {}, tags: {}'.format(cur.text, cur.score, cur.tags))
 
 def saveMessage(url, description, message_text, tags):
     db_tags = []
