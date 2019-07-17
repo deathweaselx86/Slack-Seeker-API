@@ -1,5 +1,6 @@
 import queue as Q
 from models.message import Message
+from ..models import *
 
 def scoreMessage():
     q = Q.PriorityQueue()
@@ -31,7 +32,20 @@ def scoreMessage():
     while not q.empty():
         cur = q.get()
         print('Message: {}, score: {}, tags: {}'.format(cur.text, cur.score, cur.tags))
+
+def saveMessage(url, description, message_text, tags):
+    db_tags = []
+    for tag in tags:
+        tag_obj = Tag.query.filter_by(name=tag).first()
+        if tag_obj:
+            db_tags.append(tag_obj)
+        else:
+            new_tag = Tag(tag)
+            db_tags.append(new_tag)
+            db.session.add(new_tag)
+    new_message = SlackMessage(url, description, message_text)
+    new_message.tags.extend(db_tags)
+    db.session.add(new_message)
+    db.session.commit()
         
-scoreMessage()
-    
 
