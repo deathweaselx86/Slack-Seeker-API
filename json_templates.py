@@ -1,8 +1,13 @@
 def seeker_help():
-    return r'''[{"type": "section", "text": {"type": "mrkdwn","text": "Looking for help? Try using these commands:"}},{"type": "section","text": {"type": "mrkdwn","text": "`/seeker tags`: lists all tags created in our workspace\n `/seeker tag:<tag>`: list message URLs with the provided tag\n `/seeker search \"string\"`: list message URLs with descriptions related to provided string\n `/seeker search \"string\" tag:<tag>`: list message URLs with related descriptions within the provided tag\n `/seeker save`: begin a multi-step conversation to save a message to seeker\n `/seeker save <message_URL> \"<description>\" <tag>`: save a message to seeker with the provided attributes"}}]'''
+    return '''[{"type": "section", "text": {"type": "mrkdwn","text": "Looking for help? Try using these commands:"}},{"type": "section","text": {"type": "mrkdwn","text": "`/seeker tags`: lists all tags created in our workspace\n `/seeker tag:<tag>`: list message URLs with the provided tag\n `/seeker search \"string\"`: list message URLs with descriptions related to provided string\n `/seeker search \"string\" tag:<tag>`: list message URLs with related descriptions within the provided tag\n `/seeker save`: begin a multi-step conversation to save a message to seeker\n `/seeker save <message_URL> \"<description>\" <tag>`: save a message to seeker with the provided attributes"}}]'''
+
+tag_list = ['tag1', 'tag2', 'tag3']
 
 def seeker_tags():
-    return r'''[{"type": "section","text": {"type": "mrkdwn","text": "Here's a list of tags that you can query:"}},{"type": "section","text": {"type": "mrkdwn","text": "insert\n tags\n here"}}]'''
+    return '''[{"type": "section","text": {"type": "mrkdwn","text": "Here's a list of tags that you can query:"}},{"type": "section","text": {"type": "mrkdwn","text": "''' + list_tags(tag_list) + '''"}}]'''
+
+def list_tags(tag_list):
+    return "\n".join(tag_list)
 
 def seeker_tag(tag):
     return '''[{"type": "section","text": {"type": "mrkdwn","text": "Here are the Slack messages with the tag `{''' + tag + '''}`. Help your coworkers out and leave a thumbs up on the messages that were helpful!"}},]'''
