@@ -60,6 +60,8 @@ def get_json():
 
     elif parsed_payload['command'] == 'save':
         tokens = parsed_payload['payload']
+        if len(tokens) != 3:
+            return jsonify({"message":"Please give 3 parameters after save"})
         message_Url = tokens[0]
         description = tokens[1]
         tags = [tokens[2]]
