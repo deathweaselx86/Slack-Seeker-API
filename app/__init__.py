@@ -8,7 +8,7 @@ import os
 import flask
 from flask import request
 from urllib.parse import parse_qs
-from helper import saveMessage
+# from helper import saveMessage
 import sys
 import app.text_parser as text_parser
 
@@ -66,7 +66,7 @@ def get_json():
         description = tokens[1]
         tags = tokens[2]
 
-        saveMessage(message_Url, description, tags)
+        # saveMessage(message_Url, description, tags)
         response_payload = {"message": "Done saving the terms"}
 
 
