@@ -1,7 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from app import app
-
-db = SQLAlchemy(app)
+from app import app, db
 
 messagetags = db.Table('messagetags',
     db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'), primary_key=True, nullable=False),
