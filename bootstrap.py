@@ -12,7 +12,6 @@ message = SlackMessage(url='https://optimizely.slack.com/archives/CEC864U4B/p156
 
 db.session.add(tag)
 db.session.add(message)
-print(dir(message))
 message.tags.append(tag)
 
 db.session.commit()
