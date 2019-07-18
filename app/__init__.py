@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, make_response
+from flask import Flask, jsonify, request, make_response, session
 from flask_sqlalchemy import SQLAlchemy
 
 import os, sys
@@ -62,7 +62,14 @@ def get_json():
 
     # repeat for each command, we can fix the structure later
     elif parsed_payload['command'] == 'tags':
-        tag_json_template = json_templates.seeker_tags()
+        # tag_list = session.query(models.Tag.name).all()
+        # tag_list = SQLAlchemy.Session.query(Tag.name).distinct()
+        tag_list = models.Tag.query.distinct(models.Tag.name).all()
+        arr = []
+        for tag in tag_list:
+            arr.append(tag.name)
+
+        tag_json_template = json_templates.seeker_tags(arr)
         response_payload = jsonify(tag_json_template)
 
     elif parsed_payload['command'] == 'save':

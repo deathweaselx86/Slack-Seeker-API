@@ -13,8 +13,19 @@ def seeker_help():
 
 tag_list = ['tag1', 'tag2', 'tag3']
 
-def seeker_tags():
-    return '''[{"type": "section","text": {"type": "mrkdwn","text": "Here's a list of tags that you can query:"}},{"type": "section","text": {"type": "mrkdwn","text": "''' + list_tags(tag_list) + '''"}}]'''
+def seeker_tags(tag_list):
+    return {
+        "attachments": [{
+            "blocks": [{
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": list_tags(tag_list)
+                }
+            }]
+        }]
+    }
+    # return '''[{"type": "section","text": {"type": "mrkdwn","text": "Here's a list of tags that you can query:"}},{"type": "section","text": {"type": "mrkdwn","text": "''' + list_tags(tag_list) + '''"}}]'''
 
 def list_tags(tag_list):
     return "\n".join(tag_list)

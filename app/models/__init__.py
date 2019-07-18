@@ -8,7 +8,7 @@ messagetags = db.Table('messagetags',
 class Tag(db.Model):
     __tablename__='tags'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
+    name = db.Column(db.String(80), unique=False, nullable=False)
 
 
 class SlackMessage(db.Model):
@@ -16,5 +16,5 @@ class SlackMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(512), unique=True, nullable=False)
     description = db.Column(db.String(512), nullable=False)
-    message_text = db.Column(db.String(1000), unique=True, nullable=False)
+    message_text = db.Column(db.String(1000), unique=False, nullable=False)
     tags = db.relationship('Tag', secondary=messagetags, backref=db.backref('slackmessages'))
