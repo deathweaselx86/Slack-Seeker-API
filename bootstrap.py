@@ -8,7 +8,9 @@ db.create_all()
 tag = Tag(name='sample')
 message = SlackMessage(url='https://optimizely.slack.com/archives/CEC864U4B/p1563377721005600',
                        description='Some message from #backend-infra',
-                       message_text='In late this AM, in by lunch')
+                       message_text='In late this AM, in by lunch',
+                       author='trent.robbins',
+                       annotator='yuan.chen')
 
 db.session.add(tag)
 db.session.add(message)

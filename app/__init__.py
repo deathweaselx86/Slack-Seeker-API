@@ -47,7 +47,7 @@ def get_json():
     # because that is the case where it could just be a dict in a dict
 
     #response = make_response(jsonify(resp),200)
-
+    response_payload = {}
     parsed_payload = text_parser.parse(request.form['text'])
 
     # repeat for each command, we can fix the structure later
@@ -80,9 +80,14 @@ def get_json():
         description = tokens[1]
         message_text = tokens[2]
         tags = [tokens[3]]
+        annotator = request.form['user_name']
 
         save_json_template = helper.saveMessage(message_Url, description,message_text, tags)
-        # response_payload = jsonify({"message":"Done saving the terms"})
+        helper.saveMessage(url=message_Url, 
+                            description=description,
+                            message_text=message_text, 
+                            tags=tags,
+                            annotator=annotator)
         response_payload = jsonify(save_json_template)
 
 
