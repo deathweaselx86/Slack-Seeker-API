@@ -11,8 +11,6 @@ def seeker_help():
         }]
     }
 
-tag_list = ['tag1', 'tag2', 'tag3']
-
 def seeker_tags(tag_list):
     return {
         "attachments": [{
@@ -20,7 +18,7 @@ def seeker_tags(tag_list):
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": list_tags(tag_list)
+                    "text": "Here's a list of tags that you can query:\n\n" + list_tags(tag_list)
                 }
             }]
         }]
