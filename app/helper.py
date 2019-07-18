@@ -146,7 +146,6 @@ def strip_terms(terms):
 def get_all_message_url_by_tag(tag):
     message_urls_by_tag =[]
     message_url_by_tag =  SlackMessage.query.join(messagetags).join(Tag).filter(Tag.name == tag).all()
-    for message in message_url_by_tag:
-        message_urls_by_tag.append(message.url)
 
-    return message_urls_by_tag
+
+    return message_url_by_tag
