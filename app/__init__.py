@@ -77,8 +77,10 @@ def get_json():
         if len(tokens) != 4:
             return jsonify({"message":"Please enter 4 parameters"})
         message_Url = tokens[0]
-        description = tokens[1]
-        message_text = tokens[2]
+        description_with_quotes = tokens[1]
+        message_text_with_quotes = tokens[2]
+        description = description_with_quotes[1:len(description_with_quotes-1)]
+        message_text = message_text_with_quotes[1:len(message_text_with_quotes)-1]
         tags = [tokens[3]]
         annotator = request.form['user_name']
 
