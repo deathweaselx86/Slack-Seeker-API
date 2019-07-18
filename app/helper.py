@@ -7,7 +7,7 @@ from string import ascii_letters, digits
 
 
 def searchMessage(terms):
-    q = Q.PriorityQueue(maxsize=10)
+    q = Q.PriorityQueue()
     messages = SlackMessage.query.all()
 
     '''
