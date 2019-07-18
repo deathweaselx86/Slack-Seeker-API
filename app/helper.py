@@ -1,5 +1,5 @@
 import queue as Q
-from app.models import Tag, SlackMessage
+from app.models import Tag, SlackMessage, messagetags
 from app.models.message import Message
 from app import app, db
 
@@ -143,7 +143,7 @@ def strip_terms(terms):
     return stripped_terms
 
 def get_all_message_url_by_tag(tag):
-    message_url_by_tag = SlackMessage.query.join(Tag, SlackMessage.tags.tag_id == Tag.id).filter(Tag.name == tag)
+    message_url_by_tag =  SlackMessage.query.join(messagetags).join(Tag).filter(Tag.name == tag).all()
     return message_url_by_tag
 
 
