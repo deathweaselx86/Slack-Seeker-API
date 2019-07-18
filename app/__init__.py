@@ -33,9 +33,17 @@ def get_all():
 @app.route('/get_payload', methods=['GET', 'POST'])
 def get_payload():
 
-    payload = request.get_data()
-    response = make_response(payload, 200)
+    parsed_payload = text_parser.parse(request.form['text'])
+    bytecode_payload = request.get_data()
+    payload = ['bytecode_response': bytecode_payload,
+            'parsed_payload': parsed_payload]
+
+    response = make_response(jsonify(payload), 200)
+
+    response.headers['Access-Control-Allow-Origin'] = '*'
+
     return response
+
 
 @app.route('/testjson', methods=['GET','POST'])
 def get_json():
