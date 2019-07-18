@@ -120,6 +120,6 @@ def get_json():
         unrecognized_json_template = json_templates.seeker_unrecognized(message_Url, tags, description)
         response_payload = jsonify(unrecognized_json_template)
 
-    response.headers['Access-Control-Allow-Origin'] = '*'
+    response_payload.headers['Access-Control-Allow-Origin'] = '*'
 
     return response_payload
