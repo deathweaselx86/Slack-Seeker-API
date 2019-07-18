@@ -80,7 +80,7 @@ def get_json():
         response_payload = jsonify(tag_json_template)
 
     # tag an existing message
-    elif parse_payload['command'] == 'tag':
+    elif parsed_payload['command'] == 'tag':
         tokens = parsed_payload['payload']
         if len(tokens) != 2:
             response_payload = 'Syntax for tagging and untagging is /seeker tag <tag> <message_id>'
@@ -110,7 +110,7 @@ def get_json():
                 response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first.'
 
     # untag an existing message
-    elif parse_payload['command'] == 'untag':
+    elif parsed_payload['command'] == 'untag':
         tokens = parsed_payload['payload']
         flag_tag_found = False # set to true if the tag is found and excluded (aka removed)
         if len(tokens) != 2:
