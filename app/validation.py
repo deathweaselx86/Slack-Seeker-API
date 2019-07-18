@@ -6,7 +6,7 @@ def isValid(resp):
         if payload:
             pass    # TODO: Drop payload when user adds text after "tags" 
         return True, None
-    if command == "tag":
+    if command == "show":
         return True, None
     if command == "search":
         firstElem = payload[0]
