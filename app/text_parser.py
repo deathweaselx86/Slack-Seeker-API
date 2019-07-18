@@ -39,18 +39,18 @@ def retokenize(payload):
                     description.extend(payload[i+1:])
             # if "|" attached to a tag
             elif vertical_split[1] == "":
-                tags.append("`" + vertical_split[0] + "`")
+                tags.append(vertical_split[0])
                 description.extend(payload[i+1:])
             # if "|" attached to both tag and description
             else:
-                tags.append("`" + vertical_split[0] + "`")
+                tags.append(vertical_split[0])
                 description.append(vertical_split[1])
                 # if the description is more than one word
                 if payload[i+1:]:
                     description.extend(payload[i+1:])
             break
         else:
-            tags.append("`" + payload[i] + "`")
+            tags.append(payload[i])
     description = " ".join(description)
     return {
         "message_URL": message_URL,
