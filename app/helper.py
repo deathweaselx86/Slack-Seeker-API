@@ -37,7 +37,7 @@ def searchMessage(terms):
     
     return q
 
-def searchMessage(terms, tags):
+def searchMessageByTag(terms, tags):
     q = Q.PriorityQueue()
     db_messages = SlackMessage.query.all()
     messages = []
