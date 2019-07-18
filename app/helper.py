@@ -143,7 +143,7 @@ def strip_terms(terms):
     return stripped_terms
 
 def get_all_message_url_by_tag(tag):
-    message_url_by_tag = SlackMessage.query.join(Tag).filter(Tag.name == tag)
+    message_url_by_tag = SlackMessage.query.join(Tag, SlackMessage.tags.tag_id == Tag.id).filter(Tag.name == tag)
     return message_url_by_tag
 
 
