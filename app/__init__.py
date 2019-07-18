@@ -81,8 +81,9 @@ def get_json():
         message_text = tokens[2]
         tags = [tokens[3]]
 
-        helper.saveMessage(message_Url, description,message_text, tags)
-        response_payload = jsonify({"message":"Done saving the terms"})
+        save_json_template = helper.saveMessage(message_Url, description,message_text, tags)
+        # response_payload = jsonify({"message":"Done saving the terms"})
+        response_payload = jsonify(save_json_template)
 
 
     '''
