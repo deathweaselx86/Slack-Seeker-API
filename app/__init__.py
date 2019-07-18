@@ -110,7 +110,7 @@ def get_json():
         terms = parsed_payload['payload']
         terms[0] = terms[0].strip("\"")
         terms[-1] = terms[-1].strip("\"")
-        print(terms)
+        app.logger.info(terms)
         message_q = helper.searchMessage(terms)
         search_json_template = json_templates.seeker_search(message_q)
         response_payload = jsonify(search_json_template)
