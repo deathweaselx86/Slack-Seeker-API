@@ -132,6 +132,7 @@ def get_json():
                 message_id = int(tokens[0])
             except ValueError:
                 response_payload = 'The message id was not an integer.'
+                return jsonify({'message': response_payload})
             try:
                 message = db.session.query(models.SlackMessage).get(message_id)
                 tag = db.session.query(models.Tag).filter(models.Tag.name == tokens[1]).first()
@@ -142,7 +143,7 @@ def get_json():
                     else:
                         flag_tag_found = True
                 message.tags = new_message_tags
-                db.session.save()
+                db.session.commit()
                 if flag_tag_found:
                     response_payload = 'Message tag was removed from the message successfully.'
                 else:
