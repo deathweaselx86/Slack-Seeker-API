@@ -24,6 +24,8 @@ from app import models
 #import app.models
 #import app.views
 
+import requests
+
 # leave at bottom of imports or avoid app.<whatever> after this due to python3 imports
 from app import app
 
@@ -93,15 +95,33 @@ def get_json():
     elif parsed_payload['command'] == 'save':
         tokens = parsed_payload['payload']
         message_Url = tokens["message_URL"]
+        message_arr = message_Url.split('/')
+
+        channel_id = message_arr[4]
+        message = message_arr[5]
+        post_message_id = message[-6:]
+        post_message_id_start_index = message.find(post_message_id)
+        pre_message_id = message[1:post_message_id_start_index]
+        params = {
+          'token': os.getenv('SLACK_TOKEN'),
+          'channel': channel_id,
+          'oldest': pre_message_id + '.' + post_message_id,
+          'limit': 1,
+          'inclusive': True,
+        }
+
+        slack_message_resp = requests.get("https://slack.com/api/conversations.history", params).json()
+
         tags = tokens["tags"]
         description = tokens["description"]
-        message_text = "HARDCODED MESSAGE TEXT"
+        message_text = slack_message_resp['messages'][0]['text']
         annotator = request.form['user_name']
+        # author = 'test'
 
         save_json_template = json_templates.seeker_save(message_Url, tags, description)
-        helper.saveMessage(url=message_Url, 
+        helper.saveMessage(url=message_Url,
                             description=description,
-                            message_text=message_text, 
+                            message_text=message_text,
                             tags=tags,
                             annotator=annotator)
         response_payload = jsonify(save_json_template)
