@@ -167,7 +167,7 @@ def seeker_search(message_q):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "<" + message.url + "|" + message.id + ">*"
+                "text": "<" + message.url + "|" + message.description + ">*"
             }
         })
 
@@ -176,7 +176,7 @@ def seeker_search(message_q):
             "elements": [
                 {
                     "type": "mrkdwn",
-                    "text": "Author: " + message.author + " | ID: " + message.id + "\n Tags: " + (" ".join(message.tags))
+                    "text": "Author: " + message.author + " | ID: " + str(message.id) + "\n Tags: " + (" ".join(message.tags))
                 }
             ]
         })
