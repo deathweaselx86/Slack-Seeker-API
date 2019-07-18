@@ -6,8 +6,7 @@ def seeker_help():
                     "type": "section",
                     "text": {
                         "type": "plain_text",
-                        "text": "Looking for help? Try using these commands:",
-                        "emoji": true
+                        "text": "Looking for help? Try using these commands:"
                     }
                 },
                 {
