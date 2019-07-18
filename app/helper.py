@@ -3,6 +3,8 @@ from app.models import Tag, SlackMessage
 from app.models.message import Message
 from app import app, db
 
+from string import ascii_letters, digits
+
 def searchMessage(terms):
     q = Q.PriorityQueue(maxsize=10)
     messages = SlackMessage.query.all()
@@ -87,7 +89,25 @@ def updateMessage(url, **args):
         message.annotator = annotator
     db.session.commit()
 
-                    
-            
-        
-    
+
+def strip_terms(terms):
+    ''' convert each term in terms to just letters and numbers
+
+    terms - list of strings
+    '''
+    allowed_glyphs = ascii_letters + digits
+
+    stripped_terms = []
+    for term in terms:
+        stripped_term = ''
+        for letter in term:
+            if letter in allowed_glyphs:
+                stripped_term += letter
+            else:
+                stripped_terms.append(stripped_term)
+                stripped_term = ''
+        if stripped_term:
+            stripped_terms.append(stripped_term)
+
+    return stripped_terms
+
