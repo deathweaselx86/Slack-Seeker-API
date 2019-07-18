@@ -33,7 +33,7 @@ def searchMessage(terms):
     
     return q
 
-def saveMessage(url, description, message_text, author, annotator, tags):
+def saveMessage(url, description, message_text, author="None", annotator, tags):
     db_tags = []
     for tag in tags:
         tag_obj = Tag.query.filter_by(name=tag).first()

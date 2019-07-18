@@ -80,8 +80,13 @@ def get_json():
         description = tokens[1]
         message_text = tokens[2]
         tags = [tokens[3]]
+        annotator = request.form['user_name']
 
-        helper.saveMessage(message_Url, description,message_text, tags)
+        helper.saveMessage(url=message_Url, 
+                            description=description,
+                            message_text=message_text, 
+                            tags=tags,
+                            annotator=annotator)
         response_payload = jsonify({"message":"Done saving the terms"})
 
 
