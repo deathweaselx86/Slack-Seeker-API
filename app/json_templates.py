@@ -130,9 +130,8 @@ def seeker_save(message_URL, tags, description):
         }]
     }
 
-def tags_plural(tags) {
+def tags_plural(tags):
     return "tags " if len(tags) > 1 else "tag "
-}
     
     # return '''[{"type": "section","text": {"type": "mrkdwn","text": "Alright! Saved "*''' + description + ''':* ''' + message_URL + ''' with tag `''' + tag + '''`.}},]'''
 
