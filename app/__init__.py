@@ -107,9 +107,7 @@ def get_json():
         response_payload = jsonify(save_json_template)
     
     elif parsed_payload['command'] == 'search':
-        tokens = parsed_payload['payload']
-        description = tokens[0]
-        terms = tokens[1:]
+        terms = parsed_payload['payload']
         terms[0] = terms[0].strip("\"")
         terms[-1] = terms[-1].strip("\"")
         
