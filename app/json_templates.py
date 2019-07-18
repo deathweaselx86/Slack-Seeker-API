@@ -49,7 +49,7 @@ def seeker_save(message_URL, description, tag):
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "Alright! Saved *" + description + "*: " + message_URL + " with tag `" + tag + "`."
+                    "text": "Alright! Saved *" + description + "*: " + message_URL + " with tags " + ", ".join(tag) + "."
                 }
             }]
         }]
