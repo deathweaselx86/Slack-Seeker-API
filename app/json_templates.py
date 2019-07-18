@@ -5,7 +5,13 @@ def seeker_help():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "Looking for help? Try using these commands:\n\n`/seeker tags`: lists all tags created in our workspace\n `/seeker tag:<tag>`: list message URLs with the provided tag\n `/seeker search \"string\" (tag:<tag>`: list message URLs with descriptions related to provided string (optionally, restrict query to provided tag)\n `/seeker save <message_URL> \"<description>\" <tag>`: save a message to seeker with the provided attributes"
+                    "text": "Looking for help? Try using these commands:"
+                }
+            },{
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "`/seeker tags`: lists all tags created in our workspace\n `/seeker tag:<tag>`: list message URLs with the provided tag\n `/seeker search \"string\" (tag:<tag>`: list message URLs with descriptions related to provided string (optionally, restrict query to provided tag)\n `/seeker save <message_URL> \"<description>\" <tag>`: save a message to seeker with the provided attributes"
                 }
             }]
         }]
