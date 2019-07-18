@@ -138,6 +138,9 @@ def show_message_urls(message_urls):
         })
     return message_blocks
 
+# def url_string_or_slackmessage(url):
+#     return url if isinstance(url, str) else url.url
+
 def seeker_save(message_URL, tags, description):
     return {
         "blocks": [{
@@ -157,6 +160,7 @@ def seeker_search(message_q):
             "text": "Here are the messages we found:"
         }
     }]}
+    print(message_q)
     # while not message_q.empty():
     #     message = message_q.get()
     #     payload["blocks"].append({
