@@ -26,7 +26,7 @@ def searchMessage(terms):
         text = msg.description.lower()
         tags = set()
         for tag in msg.tags:
-            tags.add(tag.name)
+            tags.add(tag)
         for term in terms:
             if term in text:
                 msg.setScore(msg.getScore() + 1)
@@ -37,35 +37,35 @@ def searchMessage(terms):
     
     return q
 
-def searchMessageByTag(terms, tags):
-    q = Q.PriorityQueue()
-    db_messages = SlackMessage.query.all()
-    messages = []
-    # Iterate through each message in the database
-    for msg in db_messages:
-        # Create a Message object
-        message = Message(url=msg.url,
-                        description=msg.description,
-                        score=0,
-                        tags=msg.tags,
-                        author=msg.author,
-                        annotator=msg.annotator)
-        # Check if the Message object has any tag that's in the query tags
-        for tag in message.tags:
-            # If so add the message into the messages list
-            if tag in tags:
-                messages.append(message)
-                break
+# def searchMessageByTag(terms, tags):
+#     q = Q.PriorityQueue()
+#     db_messages = SlackMessage.query.all()
+#     messages = []
+#     # Iterate through each message in the database
+#     for msg in db_messages:
+#         # Create a Message object
+#         message = Message(url=msg.url,
+#                         description=msg.description,
+#                         score=0,
+#                         tags=msg.tags,
+#                         author=msg.author,
+#                         annotator=msg.annotator)
+#         # Check if the Message object has any tag that's in the query tags
+#         for tag in message.tags:
+#             # If so add the message into the messages list
+#             if tag in tags:
+#                 messages.append(message)
+#                 break
     
-    # Now iterate through the list of messages that have relevant tag
-    # and score them based on the terms in its description
-    for message in messages:
-        text = message.description
-        for term in terms:
-            if term in text:
-                message.setScore(message.getScore() + 1)
-        q.put(message)
-    return q
+#     # Now iterate through the list of messages that have relevant tag
+#     # and score them based on the terms in its description
+#     for message in messages:
+#         text = message.description
+#         for term in terms:
+#             if term in text:
+#                 message.setScore(message.getScore() + 1)
+#         q.put(message)
+#     return q
     
 def saveMessage(url, description, message_text, annotator, tags, author="None"):
     db_tags = []
