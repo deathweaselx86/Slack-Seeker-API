@@ -92,14 +92,12 @@ def seeker_help():
 
 def seeker_tags(tag_list):
     return {
-        "attachments": [{
-            "blocks": [{
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "Here's a list of tags that you can query:\n\n" + list_tags(tag_list)
-                }
-            }]
+        "blocks": [{
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Here's a list of tags that you can query:\n\n" + list_tags(tag_list)
+            }
         }]
     }
     # return '''[{"type": "section","text": {"type": "mrkdwn","text": "Here's a list of tags that you can query:"}},{"type": "section","text": {"type": "mrkdwn","text": "''' + list_tags(tag_list) + '''"}}]'''
@@ -109,28 +107,24 @@ def list_tags(tag_list):
 
 def seeker_tag(tag):
     return {
-        "attachments": [{
-            "blocks": [{
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "Here are the Slack messages with the tag `" + tag + "`. Help your coworkers out and leave a thumbs up on the messages that were helpful!"
-                }
-            }]
+        "blocks": [{
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Here are the Slack messages with the tag `" + tag + "`. Help your coworkers out and leave a thumbs up on the messages that were helpful!"
+            }
         }]
     }
     # return '''[{"type": "section","text": {"type": "mrkdwn","text": "Here are the Slack messages with the tag `{''' + tag + '''}`. Help your coworkers out and leave a thumbs up on the messages that were helpful!"}},]'''
 
 def seeker_save(message_URL, description, tag):
     return {
-        "attachments": [{
-            "blocks": [{
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "Alright! Saved *" + description + "*: " + message_URL + " with tags " + ", ".join(tag) + "."
-                }
-            }]
+        "blocks": [{
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Alright! Saved *" + description + "*: " + message_URL + " with tags " + ", ".join(tag) + "."
+            }
         }]
     }
     
