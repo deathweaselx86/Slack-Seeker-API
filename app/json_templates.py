@@ -51,18 +51,22 @@ def seeker_tag(tag):
     }
     # return '''[{"type": "section","text": {"type": "mrkdwn","text": "Here are the Slack messages with the tag `{''' + tag + '''}`. Help your coworkers out and leave a thumbs up on the messages that were helpful!"}},]'''
 
-def seeker_save(message_URL, description, tag):
+def seeker_save(message_URL, tags, description):
     return {
         "attachments": [{
             "blocks": [{
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "Alright! Saved *" + description + "*: " + message_URL + " with tags " + ", ".join(tag) + "."
+                    "text": "Alright! Saved *" + description + "*: " + message_URL + " with " + tags_plural(tags) + ", ".join(tags) + "."
                 }
             }]
         }]
     }
+
+def tags_plural(tags) {
+    return "tags " if len(tags) > 1 else "tag "
+}
     
     # return '''[{"type": "section","text": {"type": "mrkdwn","text": "Alright! Saved "*''' + description + ''':* ''' + message_URL + ''' with tag `''' + tag + '''`.}},]'''
 

@@ -74,17 +74,19 @@ def get_json():
 
     elif parsed_payload['command'] == 'save':
         tokens = parsed_payload['payload']
-        if len(tokens) != 4:
-            return jsonify({"message":"Please enter 4 parameters"})
-        message_Url = tokens[0]
-        description_with_quotes = tokens[1]
-        message_text_with_quotes = tokens[2]
-        description = description_with_quotes[1:len(description_with_quotes-1)]
-        message_text = message_text_with_quotes[1:len(message_text_with_quotes)-1]
-        tags = [tokens[3]]
+        # if len(tokens) != 4:
+        #     return jsonify({"message":"Please enter 4 parameters"})
+        message_Url = tokens["message_Url"]
+        tags = tokens["tags"]
+        description = tokens["description"]
+        # description_with_quotes = tokens[1]
+        # message_text_with_quotes = tokens[2]
+        # description = description_with_quotes[1:len(description_with_quotes-1)]
+        # message_text = message_text_with_quotes[1:len(message_text_with_quotes)-1]
+        # tags = [tokens[3]]
         annotator = request.form['user_name']
 
-        save_json_template = json_templates.seeker_save(message_Url, description, tags)
+        save_json_template = json_templates.seeker_save(message_Url, tags, description)
         helper.saveMessage(url=message_Url, 
                             description=description,
                             message_text=message_text, 
