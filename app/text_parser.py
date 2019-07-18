@@ -14,6 +14,8 @@ def parse(text):
             "command": command,
             "payload": new_payload
         }
+    elif command == "search":
+        new_payload = 
 
     return {
         "command": command,
