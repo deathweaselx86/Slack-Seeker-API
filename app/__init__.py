@@ -110,7 +110,7 @@ def get_json():
         terms = parsed_payload['payload']
         terms[0] = terms[0].strip("\"")
         terms[-1] = terms[-1].strip("\"")
-        
+        app.logger.info(terms)
         message_q = helper.searchMessage(terms)
         search_json_template = json_templates.seeker_search(message_q)
         response_payload = jsonify(search_json_template)
@@ -120,6 +120,6 @@ def get_json():
         unrecognized_json_template = json_templates.seeker_unrecognized(message_Url, tags, description)
         response_payload = jsonify(unrecognized_json_template)
 
-    response.headers['Access-Control-Allow-Origin'] = '*'
+    response_payload.headers['Access-Control-Allow-Origin'] = '*'
 
     return response_payload
