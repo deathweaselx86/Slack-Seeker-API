@@ -34,7 +34,7 @@ def searchMessage(terms):
         #         if term in tag or tag in term:
         #             msg.setScore(msg.getScore() + 5)
         q.put(msg)
-    
+    app.logger.info(q)
     return q
 
 # def searchMessageByTag(terms, tags):
