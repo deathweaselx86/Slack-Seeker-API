@@ -96,7 +96,7 @@ def get_json():
             # get the tag, create tag if it doesn't exist
             try:
                 # return first or None object if none
-                tag = session.query(Tag).filter(Tag.name == tokens[1]).first()
+                tag = db.session.query(Tag).filter(Tag.name == tokens[1]).first()
                 if not tag:
                     tag = Tag(tokens[1])
                     db.session.add(new_tag)
@@ -105,7 +105,7 @@ def get_json():
                 response_payload = 'New tag creation failed.'
 
             try:
-                message = session.query(SlackMessage).get(message_id)
+                message = db.session.query(SlackMessage).get(message_id)
                 # TODO: add the tag to the message relationship
                 message.tags.append(tag)
                 db.session.commit()
@@ -127,8 +127,8 @@ def get_json():
             except ValueError:
                 response_payload = 'The message id was not an integer.'
             try:
-                message = session.query(SlackMessage).get(message_id)
-                tag = session.query(Tag).filter(Tag.name == tokens[1]).first()
+                message = db.session.query(SlackMessage).get(message_id)
+                tag = db.session.query(Tag).filter(Tag.name == tokens[1]).first()
                 new_message_tags = list()
                 for tag in message.tags:
                     if tag.name != tokens[1]:
@@ -136,12 +136,12 @@ def get_json():
                     else:
                         flag_tag_found = True
                 message.tags = new_message_tags
-                session.save()
+                db.session.save()
                 if flag_tag_found:
                     response_payload = 'Message tag was removed from the message successfully.'
                 else:
                     response_payload = 'Message tag was not found on that message.'
-            except:
+            except Exception as e:
                 response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first. {}'.format(e)
         # package it into a response
         response_payload = jsonify({ 'message': response_payload })
