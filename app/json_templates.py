@@ -34,7 +34,7 @@ def seeker_help():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "`/seeker tag [tag]`"
+                    "text": "`/seeker show [tag]`"
                 }
             },
             {
