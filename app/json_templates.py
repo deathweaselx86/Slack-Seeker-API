@@ -131,7 +131,7 @@ def show_message_urls(message_urls):
                 "text": {
                     "type": "plain_text",
                     "text": ":+1:",
-                    "emoji": true
+                    "emoji": "true"
                 },
                 "value": "SOME_VALUE"
             }
