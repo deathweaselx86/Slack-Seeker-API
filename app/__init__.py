@@ -105,10 +105,16 @@ def get_json():
                 response_payload = 'New tag creation failed.'
 
             try:
-                message = db.session.query(SlackMessage).get(message_id)
+                message = db.session.query(models.SlackMessage).get(message_id)
                 # TODO: add the tag to the message relationship
-                message.tags.append(tag)
-                db.session.commit()
+                for mtag in message_tags:
+                    if mtag.name == tag.name:
+                        response_payload = 'Tag already found on message.'
+                        break
+                else:
+                    message.tags.append(tag)
+                    db.session.commit()
+                    response_payload = 'Tag {} was added to message {}.'.format(tag.name, message_id)
             except Exception as e:
                 response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first. {}'.format(e)
         # package it into a response
@@ -116,7 +122,7 @@ def get_json():
 
     # untag an existing message
     elif parsed_payload['command'] == 'untag':
-        response_payload = 'undefined errror in untag'
+        response_payload = 'undefined error in untag'
         tokens = parsed_payload['payload']
         flag_tag_found = False # set to true if the tag is found and excluded (aka removed)
         if len(tokens) != 2:
@@ -127,7 +133,7 @@ def get_json():
             except ValueError:
                 response_payload = 'The message id was not an integer.'
             try:
-                message = db.session.query(SlackMessage).get(message_id)
+                message = db.session.query(models.SlackMessage).get(message_id)
                 tag = db.session.query(Tag).filter(Tag.name == tokens[1]).first()
                 new_message_tags = list()
                 for tag in message.tags:
