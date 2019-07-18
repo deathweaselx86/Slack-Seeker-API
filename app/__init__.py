@@ -130,11 +130,17 @@ def get_json():
         else:
             try:
                 message_id = int(tokens[0])
+                app.logger.info("user provided message_id: {}".format(message_id))
             except ValueError:
                 response_payload = 'The message id was not an integer.'
                 return jsonify({'message': response_payload})
             try:
                 message = db.session.query(models.SlackMessage).get(message_id)
+                if not message:
+                    raise
+            except Exception as e:
+                response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first. {}'.format(e)
+            try:
                 tag = db.session.query(models.Tag).filter(models.Tag.name == tokens[1]).first()
                 new_message_tags = list()
                 for tag in message.tags:
