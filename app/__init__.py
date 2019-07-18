@@ -80,7 +80,7 @@ def get_json():
         response_payload = jsonify(tag_json_template)
 
     # tag an existing message
-    elif parse_payload['command'] == 'tag':
+    elif parsed_payload['command'] == 'tag':
         response_payload = 'undefined errror in tag'
         tokens = parsed_payload['payload']
         if len(tokens) != 2:
