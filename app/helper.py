@@ -7,7 +7,7 @@ from string import ascii_letters, digits
 
 
 def searchMessage(terms):
-    q = Q.PriorityQueue(maxsize=10)
+    q = Q.PriorityQueue()
     messages = SlackMessage.query.all()
 
     '''
@@ -34,7 +34,7 @@ def searchMessage(terms):
                 if term in tag or tag in term:
                     msg.setScore(msg.getScore() + 5)
         q.put(msg)
-    
+    app.logger.info(q)
     return q
 
 # def searchMessageByTag(terms, tags):
@@ -146,7 +146,6 @@ def strip_terms(terms):
 def get_all_message_url_by_tag(tag):
     message_urls_by_tag =[]
     message_url_by_tag =  SlackMessage.query.join(messagetags).join(Tag).filter(Tag.name == tag).all()
-    for message in message_url_by_tag:
-        message_urls_by_tag.append(message.url)
 
-    return message_urls_by_tag
+
+    return message_url_by_tag
