@@ -33,9 +33,17 @@ def get_all():
 @app.route('/get_payload', methods=['GET', 'POST'])
 def get_payload():
 
-    payload = request.get_data()
-    response = make_response(payload, 200)
+    bytecode_payload = request.get_data()
+    parsed_payload = text_parser.parse(request.form['text'])
+    payload = {'bytecode_response': bytecode_payload,
+            'parsed_payload': parsed_payload}
+
+    response = make_response(jsonify(payload), 200)
+
+    response.headers['Access-Control-Allow-Origin'] = '*'
+
     return response
+
 
 @app.route('/testjson', methods=['GET','POST'])
 def get_json():
@@ -71,6 +79,15 @@ def get_json():
 
         tag_json_template = json_templates.seeker_tags(arr)
         response_payload = jsonify(tag_json_template)
+
+    elif parsed_payload['command'] == 'show':
+        tokens = parsed_payload['payload']
+        tag = tokens[0]
+        message_urls = helper.get_all_message_url_by_tag(tag)
+        if len(message_urls)==0:
+            return jsonify({"message":"No message urls found with the given tag"})
+        response_payload = jsonify({"list of message urls":message_urls})
+
 
     elif parsed_payload['command'] == 'save':
         tokens = parsed_payload['payload']
