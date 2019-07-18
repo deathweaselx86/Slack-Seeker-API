@@ -70,8 +70,6 @@ def get_json():
 
     # repeat for each command, we can fix the structure later
     elif parsed_payload['command'] == 'tags':
-        # tag_list = session.query(models.Tag.name).all()
-        # tag_list = SQLAlchemy.Session.query(Tag.name).distinct()
         tag_list = models.Tag.query.distinct(models.Tag.name).all()
         arr = []
         for tag in tag_list:
@@ -91,16 +89,9 @@ def get_json():
 
     elif parsed_payload['command'] == 'save':
         tokens = parsed_payload['payload']
-        # if len(tokens) != 4:
-        #     return jsonify({"message":"Please enter 4 parameters"})
         message_Url = tokens["message_URL"]
         tags = tokens["tags"]
         description = tokens["description"]
-        # description_with_quotes = tokens[1]
-        # message_text_with_quotes = tokens[2]
-        # description = description_with_quotes[1:len(description_with_quotes-1)]
-        # message_text = message_text_with_quotes[1:len(message_text_with_quotes)-1]
-        # tags = [tokens[3]]
         message_text = "HARDCODED MESSAGE TEXT"
         annotator = request.form['user_name']
 
@@ -111,7 +102,6 @@ def get_json():
                             tags=tags,
                             annotator=annotator)
         response_payload = jsonify(save_json_template)
-
 
     '''
     # if command not recognized
