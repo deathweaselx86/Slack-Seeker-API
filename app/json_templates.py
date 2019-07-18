@@ -1,3 +1,5 @@
+import queue as Q
+
 def seeker_help():
     return {
         "blocks": [
@@ -143,6 +145,36 @@ def seeker_save(message_URL, tags, description):
             "text": {
                 "type": "mrkdwn",
                 "text": "Alright! Saved *" + description + "*: " + message_URL + " with " + tags_plural(tags) + "`" +  "`, `".join(tags) + "`."
+            }
+        }]
+    }
+
+def seeker_search(message_q):
+    payload = {"blocks": [{
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": "Here are the messages we found:"
+        }
+    }]}
+    while not message_q.empty():
+        message = message_q.get()
+        payload["blocks"].append({
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "<" + message.url + "|" + message.description + ">"
+                }
+            })
+    return payload
+
+def seeker_unrecognized(tag_list):
+    return {
+        "blocks": [{
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Sorry, command not recognized"
             }
         }]
     }

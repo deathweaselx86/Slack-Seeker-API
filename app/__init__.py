@@ -1,3 +1,4 @@
+import queue as Q
 from flask import Flask, jsonify, request, make_response, session
 from flask_sqlalchemy import SQLAlchemy
 
@@ -104,15 +105,23 @@ def get_json():
                             tags=tags,
                             annotator=annotator)
         response_payload = jsonify(save_json_template)
+    
+    elif parsed_payload['command'] == 'search':
+        tokens = parsed_payload['payload']
+        description = tokens[0]
+        terms = tokens[1:]
+        terms[0] = terms[0].strip("\"")
+        terms[-1] = terms[-1].strip("\"")
+        
+        message_q = helper.searchMessage(terms)
+        search_json_template = json_templates.seeker_search(message_q)
+        response_payload = jsonify(search_json_template)
 
-    '''
     # if command not recognized
     else:
-        # TODO: this probably fails due being dict(dict( instead of dict(list(dict -- handle this!
-        response_payload = u'Invalid command: {}'.format(parsed_payload['command'])
-    '''
+        unrecognized_json_template = json_templates.seeker_unrecognized(message_Url, tags, description)
+        response_payload = jsonify(unrecognized_json_template)
 
-    response = response_payload
     response.headers['Access-Control-Allow-Origin'] = '*'
 
-    return response
+    return response_payload
