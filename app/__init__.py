@@ -82,7 +82,7 @@ def get_json():
         tags = [tokens[3]]
         annotator = request.form['user_name']
 
-        save_json_template = helper.saveMessage(message_Url, description,message_text, tags)
+        save_json_template = json_templates.seeker_save(message_Url, description, tags)
         helper.saveMessage(url=message_Url, 
                             description=description,
                             message_text=message_text, 
