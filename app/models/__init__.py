@@ -17,4 +17,6 @@ class SlackMessage(db.Model):
     url = db.Column(db.String(512), unique=True, nullable=False)
     description = db.Column(db.String(512), nullable=False)
     message_text = db.Column(db.String(1000), unique=False, nullable=False)
+    author = db.Column(db.String(256), nullable=False)
+    annotator = db.Column(db.String(256), nullable=False)
     tags = db.relationship('Tag', secondary=messagetags, backref=db.backref('slackmessages'))
