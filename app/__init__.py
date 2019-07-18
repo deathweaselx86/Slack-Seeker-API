@@ -47,7 +47,7 @@ def get_json():
     # because that is the case where it could just be a dict in a dict
 
     #response = make_response(jsonify(resp),200)
-
+    response_payload = {}
     parsed_payload = text_parser.parse(request.form['text'])
 
     # repeat for each command, we can fix the structure later
