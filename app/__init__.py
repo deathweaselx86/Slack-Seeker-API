@@ -35,8 +35,8 @@ def get_payload():
 
     parsed_payload = text_parser.parse(request.form['text'])
     bytecode_payload = request.get_data()
-    payload = ['bytecode_response': bytecode_payload,
-            'parsed_payload': parsed_payload]
+    payload = {'bytecode_response': bytecode_payload,
+            'parsed_payload': parsed_payload}
 
     response = make_response(jsonify(payload), 200)
 
