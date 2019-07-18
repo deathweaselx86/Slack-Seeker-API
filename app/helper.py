@@ -5,36 +5,67 @@ from app import app, db
 
 from string import ascii_letters, digits
 
-def searchMessage(terms):
-    q = Q.PriorityQueue(maxsize=10)
-    messages = SlackMessage.query.all()
 
-    '''
-    Create a new Message object here to put in the queue
-    because at the moment, it's easier to just create an object with the property
-    `score`, rather than injecting score into SlackMessage model
-    '''
-    for message in messages:
-        msg = Message(url=message.url,
-                        description=message.description,
+# def searchMessage(terms):
+#     q = Q.PriorityQueue(maxsize=10)
+#     messages = SlackMessage.query.all()
+
+#     '''
+#     Create a new Message object here to put in the queue
+#     because at the moment, it's easier to just create an object with the property
+#     `score`, rather than injecting score into SlackMessage model
+#     '''
+#     for message in messages:
+#         msg = Message(url=message.url,
+#                         description=message.description,
+#                         score=0,
+#                         tags=message.tags,
+#                         author=message.author,
+#                         annotator=message.annotator)
+#         text = msg.description.lower()
+#         tags = set()
+#         for tag in msg.tags:
+#             tags.add(tag.name)
+#         for term in terms:
+#             if term in text:
+#                 msg.setScore(msg.getScore() + 1)
+#             for tag in tags:
+#                 if term in tag or tag in term:
+#                     msg.setScore(msg.getScore() + 5)
+#         q.put(msg)
+    
+#     return q
+
+def searchMessage(terms, tags):
+    q = Q.PriorityQueue()
+    db_messages = SlackMessage.query.all()
+    messages = []
+    # Iterate through each message in the database
+    for msg in db_messages:
+        # Create a Message object
+        message = Message(url=msg.url,
+                        description=msg.description,
                         score=0,
-                        tags=message.tags,
-                        author=message.author,
-                        annotator=message.annotator)
-        text = msg.description.lower()
-        tags = set()
-        for tag in msg.tags:
-            tags.add(tag.name)
+                        tags=msg.tags,
+                        author=msg.author,
+                        annotator=msg.annotator)
+        # Check if the Message object has any tag that's in the query tags
+        for tag in message.tags:
+            # If so add the message into the messages list
+            if tag in tags:
+                messages.append(message)
+                break
+    
+    # Now iterate through the list of messages that have relevant tag
+    # and score them based on the terms in its description
+    for message in messages:
+        text = message.description
         for term in terms:
             if term in text:
-                msg.setScore(msg.getScore() + 1)
-            for tag in tags:
-                if term in tag or tag in term:
-                    msg.setScore(msg.getScore() + 5)
-        q.put(msg)
-    
+                message.setScore(message.getScore() + 1)
+        q.put(message)
     return q
-
+    
 def saveMessage(url, description, message_text, annotator, tags, author="None"):
     db_tags = []
     for tag in tags:
