@@ -1,19 +1,92 @@
 def seeker_help():
     return {
         "attachments": [{
-            "blocks": [{
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "Looking for help? Try using these commands:"
+            "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Looking for help? Try using these commands:",
+                        "emoji": true
+                    }
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "`/seeker tags`"
+                    }
+                },
+                {
+                    "type": "context",
+                    "elements": [
+                        {
+                            "type": "mrkdwn",
+                            "text": "Lists all tags created in our workspace."
+                        }
+                    ]
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "`/seeker tag [tag]`"
+                    }
+                },
+                {
+                    "type": "context",
+                    "elements": [
+                        {
+                            "type": "mrkdwn",
+                            "text": "List message URLs with the provided tag."
+                        }
+                    ]
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "`/seeker search \"[text]\" (tag 1) (tag 2) (tag 3)...`"
+                    }
+                },
+                {
+                    "type": "context",
+                    "elements": [
+                        {
+                            "type": "mrkdwn",
+                            "text": "List message URLs with descriptions related to provided string. Can be filtered to specific tags."
+                        }
+                    ]
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "`/seeker save [message_URL] \"[description]\" (tag1) (tag 2) (tag 3)...`"
+                    }
+                },
+                {
+                    "type": "context",
+                    "elements": [
+                        {
+                            "type": "mrkdwn",
+                            "text": "Save a message to seeker."
+                        }
+                    ]
                 }
-            },{
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "`/seeker tags`: lists all tags created in our workspace\n `/seeker tag:<tag>`: list message URLs with the provided tag\n `/seeker search \"string\" (tag:<tag>`: list message URLs with descriptions related to provided string (optionally, restrict query to provided tag)\n `/seeker save <message_URL> \"<description>\" <tag>`: save a message to seeker with the provided attributes"
-                }
-            }]
+            ]
         }]
     }
 
