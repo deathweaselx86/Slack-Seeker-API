@@ -104,27 +104,24 @@ def list_tags(tag_list):
     return "\n".join(tag_list)
 
 def seeker_show(tag, message_urls):
-    blocks = [{
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Here are the Slack messages with the tag `" + tag + "`. Help your coworkers out and leave a thumbs up on the messages that were helpful!"
-            }
-        }]
-    blocks.extend(show_message_urls(message_urls))
-
     return {
-        "blocks": blocks
+        "blocks": show_message_urls(tag, message_urls)
     }
 
-def show_message_urls(message_urls):
-    message_blocks = []
+def show_message_urls(tag, message_urls):
+    message_blocks = [{
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": "Here are the Slack messages with the tag `" + tag + "`. Help your coworkers out and leave a thumbs up on the messages that were helpful!"
+        }
+    }]
     for url in message_urls:
         message_blocks.append({
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "URL: " + url.url
+                "text": "URL: " + url_string_or_slackmessage(url)
             },
             "accessory": {
                 "type": "button",
@@ -138,8 +135,8 @@ def show_message_urls(message_urls):
         })
     return message_blocks
 
-# def url_string_or_slackmessage(url):
-#     return url if isinstance(url, str) else url.url
+def url_string_or_slackmessage(url):
+    return url if isinstance(url, str) else url.url
 
 def seeker_save(message_URL, tags, description):
     return {
