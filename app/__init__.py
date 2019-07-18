@@ -67,7 +67,7 @@ def get_json():
         tag_list = models.Tag.query.distinct(models.Tag.name).all()
         arr = []
         for tag in tag_list:
-            arr.append(tag.name)
+            arr.append('`' + tag.name + '`')
 
         tag_json_template = json_templates.seeker_tags(arr)
         response_payload = jsonify(tag_json_template)
