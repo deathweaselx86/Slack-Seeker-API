@@ -74,13 +74,14 @@ def get_json():
 
     elif parsed_payload['command'] == 'save':
         tokens = parsed_payload['payload']
-        if len(tokens) != 3:
-            return jsonify({"message":"Please enter 3 parameters"})
+        if len(tokens) != 4:
+            return jsonify({"message":"Please enter 4 parameters"})
         message_Url = tokens[0]
         description = tokens[1]
-        tags = [tokens[2]]
+        message_text = tokens[2]
+        tags = [tokens[3]]
 
-        helper.saveMessage(message_Url, description,"", tags)
+        helper.saveMessage(message_Url, description,message_text, tags)
         response_payload = jsonify({"message":"Done saving the terms"})
 
 
