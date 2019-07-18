@@ -101,6 +101,7 @@ def get_json():
         # description = description_with_quotes[1:len(description_with_quotes-1)]
         # message_text = message_text_with_quotes[1:len(message_text_with_quotes)-1]
         # tags = [tokens[3]]
+        message_text = "HARDCODED MESSAGE TEXT"
         annotator = request.form['user_name']
 
         save_json_template = json_templates.seeker_save(message_Url, tags, description)
