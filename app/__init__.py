@@ -23,6 +23,9 @@ from app import models
 #import app.models
 #import app.views
 
+# leave at bottom of imports or avoid app.<whatever> after this due to python3 imports
+from app import app
+
 @app.route('/', methods=['GET'])
 def get_all():
     return "hello world"
@@ -71,6 +74,8 @@ def get_json():
 
     elif parsed_payload['command'] == 'save':
         tokens = parsed_payload['payload']
+        if len(tokens) != 3:
+            return jsonify({"message":"Please enter 3 parameters"})
         message_Url = tokens[0]
         description = tokens[1]
         tags = [tokens[2]]

@@ -1,5 +1,6 @@
 import queue as Q
 from app.models import Tag, SlackMessage
+from app import app, db
 
 # def scoreMessage():
 #     q = Q.PriorityQueue()
