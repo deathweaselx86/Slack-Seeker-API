@@ -80,6 +80,15 @@ def get_json():
         tag_json_template = json_templates.seeker_tags(arr)
         response_payload = jsonify(tag_json_template)
 
+    elif parsed_payload['command'] == 'tag':
+        tokens = parsed_payload['payload']
+        tag = tokens[0]
+        message_urls = helper.get_all_message_url_by_tag(tag)
+        if len(message_urls)==0:
+            return jsonify({"message":"No message urls found with the given tag"})
+        response_payload = jsonify({"list of message urls":message_urls})
+
+
     elif parsed_payload['command'] == 'save':
         tokens = parsed_payload['payload']
         if len(tokens) != 4:
