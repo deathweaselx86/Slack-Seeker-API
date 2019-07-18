@@ -96,9 +96,9 @@ def get_json():
             # get the tag, create tag if it doesn't exist
             try:
                 # return first or None object if none
-                tag = db.session.query(Tag).filter(Tag.name == tokens[1]).first()
+                tag = db.session.query(models.Tag).filter(models.Tag.name == tokens[1]).first()
                 if not tag:
-                    tag = Tag(tokens[1])
+                    tag = models.Tag(tokens[1])
                     db.session.add(new_tag)
                     db.session.commit()
             except:
@@ -107,7 +107,7 @@ def get_json():
             try:
                 message = db.session.query(models.SlackMessage).get(message_id)
                 # TODO: add the tag to the message relationship
-                for mtag in message_tags:
+                for mtag in message.tags:
                     if mtag.name == tag.name:
                         response_payload = 'Tag already found on message.'
                         break
@@ -134,7 +134,7 @@ def get_json():
                 response_payload = 'The message id was not an integer.'
             try:
                 message = db.session.query(models.SlackMessage).get(message_id)
-                tag = db.session.query(Tag).filter(Tag.name == tokens[1]).first()
+                tag = db.session.query(models.Tag).filter(models.Tag.name == tokens[1]).first()
                 new_message_tags = list()
                 for tag in message.tags:
                     if tag.name != tokens[1]:
