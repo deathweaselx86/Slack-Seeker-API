@@ -33,8 +33,8 @@ def get_all():
 @app.route('/get_payload', methods=['GET', 'POST'])
 def get_payload():
 
-    parsed_payload = text_parser.parse(request.form['text'])
     bytecode_payload = request.get_data()
+    parsed_payload = text_parser.parse(request.form['text'])
     payload = {'bytecode_response': bytecode_payload,
             'parsed_payload': parsed_payload}
 
