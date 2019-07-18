@@ -1,3 +1,4 @@
+import queue as Q
 from flask import Flask, jsonify, request, make_response, session
 from flask_sqlalchemy import SQLAlchemy
 
@@ -63,12 +64,12 @@ def get_json():
     # testing shim
     # parsed_payload = {'command': 'help'}
 
-    # repeat for each command, we can fix the structure later
+    # /seeker, /seeker help
     if parsed_payload['command'] == 'help' or parsed_payload['command'] == None:
         help_json_template = json_templates.seeker_help()
         response_payload = jsonify(help_json_template)
 
-    # repeat for each command, we can fix the structure later
+    # /seeker tags
     elif parsed_payload['command'] == 'tags':
         tag_list = models.Tag.query.distinct(models.Tag.name).all()
         arr = []
@@ -84,9 +85,11 @@ def get_json():
         message_urls = helper.get_all_message_url_by_tag(tag)
         if len(message_urls)==0:
             return jsonify({"message":"No message urls found with the given tag"})
-        response_payload = jsonify({"list of message urls":message_urls})
+        show_json_template = json_templates.seeker_show(tag, message_urls)
+        response_payload = jsonify(show_json_template)
+        # response_payload = jsonify({"list of message urls":message_urls})
 
-
+    # /seeker save
     elif parsed_payload['command'] == 'save':
         tokens = parsed_payload['payload']
         message_Url = tokens["message_URL"]
@@ -102,15 +105,21 @@ def get_json():
                             tags=tags,
                             annotator=annotator)
         response_payload = jsonify(save_json_template)
+    
+    elif parsed_payload['command'] == 'search':
+        terms = parsed_payload['payload']
+        terms[0] = terms[0].strip("\"")
+        terms[-1] = terms[-1].strip("\"")
+        
+        message_q = helper.searchMessage(terms)
+        search_json_template = json_templates.seeker_search(message_q)
+        response_payload = jsonify(search_json_template)
 
-    '''
     # if command not recognized
     else:
-        # TODO: this probably fails due being dict(dict( instead of dict(list(dict -- handle this!
-        response_payload = u'Invalid command: {}'.format(parsed_payload['command'])
-    '''
+        unrecognized_json_template = json_templates.seeker_unrecognized(message_Url, tags, description)
+        response_payload = jsonify(unrecognized_json_template)
 
-    response = response_payload
     response.headers['Access-Control-Allow-Origin'] = '*'
 
-    return response
+    return response_payload
