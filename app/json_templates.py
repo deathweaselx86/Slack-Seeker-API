@@ -124,7 +124,7 @@ def show_message_urls(message_urls):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "URL: " + url
+                "text": "URL: " + url.url
             },
             "accessory": {
                 "type": "button",
