@@ -93,7 +93,7 @@ def get_json():
         tokens = parsed_payload['payload']
         # if len(tokens) != 4:
         #     return jsonify({"message":"Please enter 4 parameters"})
-        message_Url = tokens["message_Url"]
+        message_Url = tokens["message_URL"]
         tags = tokens["tags"]
         description = tokens["description"]
         # description_with_quotes = tokens[1]
