@@ -157,15 +157,15 @@ def seeker_search(message_q):
             "text": "Here are the messages we found:"
         }
     }]}
-    while not message_q.empty():
-        message = message_q.get()
-        payload["blocks"].append({
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "<" + message.url + "|" + message.description + ">"
-                }
-            })
+    # while not message_q.empty():
+    #     message = message_q.get()
+    #     payload["blocks"].append({
+    #             "type": "section",
+    #             "text": {
+    #                 "type": "mrkdwn",
+    #                 "text": "<" + message.url + "|" + message.description + ">"
+    #             }
+    #         })
     return payload
 
 def seeker_unrecognized(tag_list):
