@@ -107,8 +107,8 @@ def get_json():
                 # TODO: add the tag to the message relationship
                 message.tags.append(tag)
                 db.session.commit()
-            except:
-                response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first.'
+            except Exception as e:
+                response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first. {}'.format(e)
         # package it into a response
         response_payload = jsonify({ 'message': response_payload })
 
@@ -125,7 +125,7 @@ def get_json():
             except ValueError:
                 response_payload = 'The message id was not an integer.'
             try:
-                message = session.query(SlackMessage).get(id=message_id)
+                message = session.query(SlackMessage).get(message_id)
                 tag = session.query(Tag).filter(Tag.name == tokens[1]).first()
                 new_message_tags = list()
                 for tag in message.tags:
@@ -140,7 +140,7 @@ def get_json():
                 else:
                     response_payload = 'Message tag was not found on that message.'
             except:
-                response_payload = 'Message id was not found in the seeker database, try a seeker save on the message first.'
+                response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first. {}'.format(e)
         # package it into a response
         response_payload = jsonify({ 'message': response_payload })
 
@@ -168,7 +168,7 @@ def get_json():
                             description=description,
                             message_text=message_text, 
                             tags=tags,
-                            annotator=annotator)
+                           annotator=annotator)
         response_payload = jsonify(save_json_template)
     
     elif parsed_payload['command'] == 'search':
