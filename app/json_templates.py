@@ -121,22 +121,22 @@ def show_message_urls(tag, message_urls):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "URL: " + url_string_or_slackmessage(url)
+                "text": "URL: " + url.url
             },
             "accessory": {
                 "type": "button",
                 "text": {
                     "type": "plain_text",
                     "text": ":+1:",
-                    "emoji": "true"
+                    "emoji": True
                 },
                 "value": "SOME_VALUE"
             }
         })
     return message_blocks
 
-def url_string_or_slackmessage(url):
-    return url if isinstance(url, str) else url.url
+# def url_string_or_slackmessage(url):
+#     return url if isinstance(url, str) else url.url
 
 def seeker_save(message_URL, tags, description):
     return {
