@@ -79,6 +79,66 @@ def get_json():
         tag_json_template = json_templates.seeker_tags(arr)
         response_payload = jsonify(tag_json_template)
 
+    # tag an existing message
+    elif parse_payload['command'] == 'tag':
+        tokens = parsed_payload['payload']
+        if len(tokens) != 2:
+            response_payload = 'Syntax for tagging and untagging is /seeker tag <tag> <message_id>'
+        else:
+            try:
+                message_id = int(tokens[0])
+            except ValueError:
+                response_payload = 'The message id was not an integer.'
+
+            # get the tag, create tag if it doesn't exist
+            try:
+                # return first or None object if none
+                tag = session.query(Tag).filter(Tag.name == tokens[1]).first()
+                if not tag:
+                    tag = Tag(tokens[1])
+                    db.session.add(new_tag)
+                    db.session.commit()
+            except:
+                response_payload = 'New tag creation failed.'
+
+            try:
+                message = session.query(SlackMessage).get(message_id)
+                # TODO: add the tag to the message relationship
+                message.tags.append(tag)
+                db.session.commit()
+            except:
+                response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first.'
+
+    # untag an existing message
+    elif parse_payload['command'] == 'untag':
+        tokens = parsed_payload['payload']
+        flag_tag_found = False # set to true if the tag is found and excluded (aka removed)
+        if len(tokens) != 2:
+            response_payload = 'Syntax for tagging and untagging is /seeker tag <tag> <message_id>'
+        else:
+            try:
+                message_id = int(tokens[0])
+            except ValueError:
+                response_payload = 'The message id was not an integer.'
+            try:
+                message = session.query(SlackMessage).get(id=message_id)
+                tag = session.query(Tag).filter(Tag.name == tokens[1]).first()
+                new_message_tags = list()
+                for tag in message.tags:
+                    if tag.name != tokens[1]:
+                        new_message_tags.append(tag)
+                    else:
+                        flag_tag_found = True
+                message.tags = new_message_tags
+                session.save()
+                if flag_tag_found:
+                    response_payload = 'Message tag was removed from the message successfully.'
+                else:
+                    response_payload = 'Message tag was not found on that message.'
+            except:
+                response_payload = 'Message id was not found in the seeker database, try a seeker save on the message first.'
+
+
     elif parsed_payload['command'] == 'show':
         tokens = parsed_payload['payload']
         tag = tokens[0]
