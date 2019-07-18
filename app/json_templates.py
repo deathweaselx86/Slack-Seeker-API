@@ -182,7 +182,7 @@ def seeker_search(message_q):
         })
     return payload
 
-def seeker_unrecognized(tag_list):
+def seeker_unrecognized():
     return {
         "blocks": [{
             "type": "section",

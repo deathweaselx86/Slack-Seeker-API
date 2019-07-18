@@ -208,7 +208,7 @@ def get_json():
 
     # if command not recognized
     else:
-        unrecognized_json_template = json_templates.seeker_unrecognized(message_Url, tags, description)
+        unrecognized_json_template = json_templates.seeker_unrecognized()
         response_payload = jsonify(unrecognized_json_template)
 
     response_payload.headers['Access-Control-Allow-Origin'] = '*'
