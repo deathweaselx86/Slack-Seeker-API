@@ -160,16 +160,16 @@ def show_message_urls(tag, message_urls):
             "text": {
                 "type": "mrkdwn",
                 "text": "URL: " + url.url
-            },
-            "accessory": {
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": ":+1:",
-                    "emoji": True
-                },
-                "value": "SOME_VALUE"
             }
+            # "accessory": {
+            #     "type": "button",
+            #     "text": {
+            #         "type": "plain_text",
+            #         "text": ":+1:",
+            #         "emoji": True
+            #     },
+            #     "value": "SOME_VALUE"
+            # }
         })
     return message_blocks
 

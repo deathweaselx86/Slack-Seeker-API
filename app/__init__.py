@@ -169,7 +169,7 @@ def get_json():
     elif parsed_payload['command'] == 'show':
         tokens = parsed_payload['payload']
         tag = tokens[0]
-        message_urls = helper.get_all_message_url_by_tag(tag)
+        message_urls = helper.get_all_messages_by_tag(tag)
         if len(message_urls)==0:
             return jsonify({"message":"No message urls found with the given tag"})
         show_json_template = json_templates.seeker_show(tag, message_urls)
@@ -216,7 +216,21 @@ def get_json():
 
         terms[0] = terms[0].strip("\"").strip("\u201c").strip("\u201d")
         terms[-1] = terms[-1].strip("\"").strip("\u201c").strip("\u201d")
-        message_q = helper.searchMessage(terms)
+        message_q = Q.PriorityQueue()
+        if "|" in terms:
+            tags = []
+            tokens = []
+            start_index = -1
+            for i in range(len(terms)):
+                if terms[i] == "|" and start_index == -1:
+                    start_index = i
+                if start_index == -1:
+                    tokens.append(terms[i])
+                elif i > start_index:
+                    tags.append(terms[i])
+            message_q = helper.searchMessageByTags(tokens, tags)
+        else:
+            message_q = helper.searchMessage(terms)
         search_json_template = json_templates.seeker_search(terms, message_q)
         response_payload = jsonify(search_json_template)
 
