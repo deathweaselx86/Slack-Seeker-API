@@ -170,6 +170,7 @@ def get_json():
         tokens = parsed_payload['payload']
         tag = tokens[0]
         message_urls = helper.get_all_messages_by_tag(tag)
+        app.logger.info(message_urls)
         if len(message_urls)==0:
             return jsonify({"message":"No message urls found with the given tag"})
         show_json_template = json_templates.seeker_show(tag, message_urls)
