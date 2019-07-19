@@ -1,12 +1,13 @@
 import queue as Q
+
 def seeker_help():
     return {
         "blocks": [
             {
                 "type": "section",
                 "text": {
-                    "type": "plain_text",
-                    "text": "Looking for help? Try using these commands:"
+                    "type": "mrkdwn",
+                    "text": "*Looking for help? Try using these commands:*"
                 }
             },
             {
@@ -150,7 +151,7 @@ def show_message_urls(tag, messages):
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": "Here are the Slack messages with the tag `" + tag
+            "text": "*Here are the Slack messages with the tag `" + tag + "*"
         }
     }]
     for message in messages:
@@ -161,7 +162,7 @@ def show_message_urls(tag, messages):
             "type": "context",
             "elements": [{
                 "type": "mrkdwn",
-                "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(
+                "text": "<" + message.url + "|link> *" + message.description + "* added by " + message.author + ", id: " + str(
                     message.id) + " , tags: " + " ".join(tag_names) + "\n\t\t" + message.message_text
             }]
             # "accessory": {
@@ -181,12 +182,20 @@ def show_message_urls(tag, messages):
 
 def seeker_save(message_URL, tags, description):
     return {
-        "blocks": [{
+        "blocks": [
+        {
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "Alright! Saved *" + description + "*: " + message_URL + " with " + tags_plural(tags) + "`" +  "`, `".join(tags) + "`."
+                "text": "*Alright, saved!*"
             }
+        },
+        {
+            "type": "context",
+            "elements": [{
+                "type": "mrkdwn",
+                "text": "*" + description + "*: " + message_URL + " with " + tags_plural(tags) + "`" +  "`, `".join(tags) + "`."
+            }]
         }]
     }
 
@@ -195,7 +204,7 @@ def seeker_search(terms, message_q):
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": "Here are the messages we found for \"" + (" ".join(terms)) + "\":"
+            "text": "*Here are the messages we found for \"" + (" ".join(terms)) + "\":*"
         }
     }]}
     while not message_q.empty():
@@ -206,7 +215,7 @@ def seeker_search(terms, message_q):
             "elements": [
                 {
                     "type": "mrkdwn",
-                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(message.id) + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
+                    "text": "<" + message.url + "|link> *" + message.description + "* added by " + message.author + ", id: " + str(message.id) + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
                 }
             ]
         })
@@ -218,7 +227,7 @@ def seeker_unrecognized():
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "Sorry, command not recognized"
+                "text": "*Sorry, command not recognized*"
             }
         }]
     }
@@ -226,65 +235,7 @@ def seeker_unrecognized():
 def tags_plural(tags):
     return "tags " if len(tags) > 1 else "tag "
 
-def seeker_save_msgURL():
-    return '''[{"type": "section","text": {"type": "mrkdwn","text": "Time to save a message to Seeker! What's the Slack message URL?"}},]'''
-
-def seeker_save_desc():
-    return '''[{"type": "section","text": {"type": "mrkdwn","text": "Okay! please provide a short description (a sentence or less) of the message."}},]'''
-
-def seeker_save_tag():
-    return '''{"type": "section","text": {"type": "mrkdwn","text": "Great! Now assign a tag to this Slack message.If the tag hasn't been created yet, we'll create it for you."}},]'''
-
 def seeker_show_no_tag(messages):
-    payload = {"blocks": [{
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": ""
-        }
-    }]}
-    while not messages.empty():
-        message = messages.get()
-
-        payload["blocks"].append({
-            "type": "context",
-            "elements": [
-                {
-                    "type": "mrkdwn",
-                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(
-                        message.id) + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
-                }
-            ]
-        })
-    return payload
-
-def show_messages(messages):
-    message_blocks = [{
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": ""
-        }
-    }]
-    for message in messages:
-        tag_names=[]
-        for tag in message.tags:
-            tag_names.append(tag.name)
-        message_blocks.append({
-            "type": "context",
-            "elements": [{
-                "type": "mrkdwn",
-                "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(
-                    message.id) + " , tags: " + " ".join(tag_names) + "\n\t\t" + message.message_text
-            }]
-            # "accessory": {
-            #     "type": "button",
-            #     "text": {
-            #         "type": "plain_text",
-            #         "text": ":+1:",
-            #         "emoji": True
-            #     },
-            #     "value": "SOME_VALUE"
-            # }
-        })
-    return message_blocks
+    return {
+        "blocks": show_message_urls(messages)
+    }
