@@ -20,7 +20,7 @@ def searchMessage(terms):
         msg = Message(id=message.id,
                         url=message.url,
                         description=message.description,
-                        message_text=message.message_txt,
+                        message_text=message.message_text,
                         score=0,
                         tags=message.tags,
                         author=message.author,
