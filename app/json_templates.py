@@ -146,25 +146,31 @@ def seeker_show(tag, message_urls):
     }
 
 def show_message_urls(tag, messages):
-    payload = {"blocks": [{
+    message_blocks = [{
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": "Here are the messages we found for \"" + tag + "\":"
+            "text": "Here are the Slack messages with the tag `" + tag
         }
-    }]}
+    }]
     for message in messages:
-        payload["blocks"].append({
-            "type": "context",
-            "elements": [
-                {
-                    "type": "mrkdwn",
-                    "text": message.url
-
-                }
-            ]
+        message_blocks.append({
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "URL: " + message.url
+            }
+            # "accessory": {
+            #     "type": "button",
+            #     "text": {
+            #         "type": "plain_text",
+            #         "text": ":+1:",
+            #         "emoji": True
+            #     },
+            #     "value": "SOME_VALUE"
+            # }
         })
-    return payload
+    return message_blocks
 
 # def url_string_or_slackmessage(url):
 #     return url if isinstance(url, str) else url.url
