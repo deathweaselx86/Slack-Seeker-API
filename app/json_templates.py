@@ -82,7 +82,7 @@ def seeker_help():
                 "elements": [
                     {
                         "type": "mrkdwn",
-                        "text": "Saves the given message with the given tags so it can be queried later."
+                        "text": "Save a slack message URL with tags and a description. To get a slack message URL, press the message `...` icon."
                     }
                 ]
             },
@@ -101,7 +101,7 @@ def seeker_help():
                 "elements": [
                     {
                         "type": "mrkdwn",
-                        "text": "Adds a tag to a given saved message."
+                        "text": "Add a tag to a message by message_id. Get the message id from `/seeker show` or `/seeker search`"
                     }
                 ]
             },
@@ -120,7 +120,7 @@ def seeker_help():
                 "elements": [
                     {
                         "type": "mrkdwn",
-                        "text": "Removes a tag from a given message."
+                        "text": "Remove a tag from a message by message_id. Get the message id from `/seeker show` or `/seeker search`"
                     }
                 ]
             }
