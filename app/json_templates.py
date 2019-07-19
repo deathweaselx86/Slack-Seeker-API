@@ -151,9 +151,19 @@ def show_message_urls(tag, messages):
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": "*Here are the Slack messages with the tag `" + tag + "*"
+            "text": "*Here are the Slack messages with the tag " + tag + "*"
         }
     }]
+
+    if not messages:
+        message_blocks.append({
+            "type": "context",
+            "elements": [{
+                "type": "mrkdwn",
+                "text": "No results found..."
+            }]
+        })
+
     for message in messages:
         tag_names=[]
         for tag in message.tags:
@@ -207,6 +217,18 @@ def seeker_search(terms, message_q):
             "text": "*Here are the messages we found for \"" + (" ".join(terms)) + "\":*"
         }
     }]}
+
+    if message_w.empty():
+        payload["blocks"].append({
+            "type": "context",
+            "elements": [
+                {
+                    "type": "mrkdwn",
+                    "text": "No results found..."
+                }
+            ]
+        })
+
     while not message_q.empty():
         message = message_q.get()
 
