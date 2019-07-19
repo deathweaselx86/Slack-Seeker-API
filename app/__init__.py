@@ -212,7 +212,7 @@ def get_json():
 
         db_message = models.SlackMessage.query.filter_by(url=message_Url).first()
         save_json_template = {}
-        if not message is None:
+        if message:
             save_json_template = json_templates.seeker_already_save(db_message)
         else:
             save_json_template = json_templates.seeker_save(message_Url, tags, description)
