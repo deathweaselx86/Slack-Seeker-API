@@ -180,12 +180,12 @@ def get_json():
         if len(message_urls)==0:
             return jsonify({"message":"No message urls found with the given tag"})
         show_json_template = json_templates.seeker_show(tag, message_urls)
-        app.logger.info(show_json_template)
         response_payload = jsonify(show_json_template)
         # response_payload = jsonify({"list of message urls":message_urls})
 
     elif parsed_payload['command'] in ['share', 'save', 'add', 'new', 'create']:
         tokens = parsed_payload['payload']
+        app.logger.info(tokens)
         message_Url = tokens["message_URL"]
         message_arr = message_Url.split('/')
 
@@ -214,7 +214,6 @@ def get_json():
         save_json_template = {}
         if not message is None:
             save_json_template = json_templates.seeker_already_save(db_message)
-            app.logger.info(save_json_template)
         else:
             save_json_template = json_templates.seeker_save(message_Url, tags, description)
             helper.saveMessage(url=message_Url,
