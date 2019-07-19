@@ -180,6 +180,7 @@ def get_json():
         if len(message_urls)==0:
             return jsonify({"message":"No message urls found with the given tag"})
         show_json_template = json_templates.seeker_show(tag, message_urls)
+        app.logger.info(show_json_template)
         response_payload = jsonify(show_json_template)
         # response_payload = jsonify({"list of message urls":message_urls})
 
