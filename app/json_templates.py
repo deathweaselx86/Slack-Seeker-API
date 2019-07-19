@@ -224,8 +224,7 @@ def seeker_already_save(message):
             "type": "context",
             "elements": [{
                 "type": "mrkdwn",
-                "text": "<" + message.url + "|link> *" + message.description + "* added by " + message.annotator + ", id: " + str(
-                    message.id) + " , tags: " + " ".join(tag_names) + "\n\t\tMessage: " + message.message_text
+                "text": "<" + message.url + "|link> *" + message.description + "* added by " + message.annotator + ", id: " + str(message.id) + " , tags: " + " ".join(tag_names) + "\n\t\tMessage: " + message.message_text
             }]
            }
         ]
