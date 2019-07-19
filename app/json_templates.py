@@ -158,12 +158,12 @@ def show_message_urls(tag, messages):
         for tag in message.tags:
             tag_names.append(tag.name)
         message_blocks.append({
-            "type": "section",
-            "text": {
+            "type": "context",
+            "elements": [{
                 "type": "mrkdwn",
                 "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(
                     message.id) + " , tags: " + " ".join(tag_names) + "\n\t\t" + message.message_text
-            }
+            }]
             # "accessory": {
             #     "type": "button",
             #     "text": {
