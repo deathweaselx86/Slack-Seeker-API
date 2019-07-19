@@ -162,7 +162,7 @@ def show_message_urls(tag, messages):
                 {
                     "type": "mrkdwn",
                     "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(
-                        message.id) + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
+                        message.id) + " , tags: " + " ".join(str(message.tags))+ "\n\t\t" + message.message_text
                 }
             ]
         })
