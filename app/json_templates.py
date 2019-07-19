@@ -172,7 +172,7 @@ def show_message_urls(tag, messages):
             "type": "context",
             "elements": [{
                 "type": "mrkdwn",
-                "text": "<" + message.url + "|🔗link> *" + message.description + "* added by " + message.annotator + ", id: " + str(
+                "text": "<" + message.url + "|🔗 link> *" + message.description + "* added by " + message.annotator + ", id: " + str(
                     message.id) + " , tags: " + " ".join(tag_names)
             }]
             # "accessory": {
@@ -237,7 +237,7 @@ def seeker_search(terms, message_q):
             "elements": [
                 {
                     "type": "mrkdwn",
-                    "text": "<" + message.url + "|🔗link> *" + message.description + "* added by " + message.annotator + ", id: " + str(message.id) + " , tags: " + " ".join(message.tags)
+                    "text": "<" + message.url + "|🔗 link> *" + message.description + "* added by " + message.annotator + ", id: " + str(message.id) + " , tags: " + " ".join(message.tags)
                 }
             ]
         })
@@ -269,7 +269,7 @@ def seeker_show_no_tag(messages):
             "elements": [
                 {
                     "type": "mrkdwn",
-                    "text": "<" + message.url + "|🔗link> *" + message.description + "* added by " + message.annotator + ", id: " + str(message.id) + " , tags: " + " ".join(tag_names)
+                    "text": "<" + message.url + "|🔗 link> *" + message.description + "* added by " + message.annotator + ", id: " + str(message.id) + " , tags: " + " ".join(tag_names)
                 }
             ]
         })
