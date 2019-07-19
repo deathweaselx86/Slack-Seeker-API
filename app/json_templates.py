@@ -257,7 +257,28 @@ def seeker_unrecognized():
 def tags_plural(tags):
     return "tags " if len(tags) > 1 else "tag "
 
+
 def seeker_show_no_tag(messages):
-    return {
-        "blocks": show_message_urls(messages)
-    }
+    payload = {"blocks": [{
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": ""
+        }
+    }]}
+    while not messages.empty():
+        message = messages.get()
+        tag_names = []
+        for tag in message.tags:
+            tag_names.append(tag.name)
+        payload["blocks"].append({
+            "type": "context",
+            "elements": [
+                {
+                    "type": "mrkdwn",
+                    "text": "<" + message.url + "|link> *" + message.description + "* added by " + message.author + ", id: " + str(message.id) + " , tags: " + " ".join(tag_names) + "\n\t\t" + message.message_text
+                }
+            ]
+        })
+    return payload
+
