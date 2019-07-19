@@ -143,9 +143,9 @@ def strip_terms(terms):
 
     return stripped_terms
 
-def get_all_message_url_by_tag(tag):
-    message_urls_by_tag =[]
-    message_url_by_tag =  SlackMessage.query.join(messagetags).join(Tag).filter(Tag.name == tag).all()
+def get_all_messages_by_tag(tag):
+    messages_by_tag =[]
+    messages_by_tag =  SlackMessage.query.join(messagetags).join(Tag).filter(Tag.name == tag).all()
 
 
-    return message_url_by_tag
+    return messages_by_tag
