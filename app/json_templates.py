@@ -149,36 +149,23 @@ def seeker_save(message_URL, tags, description):
         }]
     }
 
-def seeker_search(message_q):
+def seeker_search(terms, message_q):
     payload = {"blocks": [{
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": "Here are the messages we found:"
+            "text": "Here are the messages we found for \"" + (" ".join(terms)) + "\":"
         }
     }]}
     while not message_q.empty():
         message = message_q.get()
-        payload["blocks"].append({
-            "type": "divider"
-        })
 
         payload["blocks"].append({
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "<" + message.url + "|" + message.description + ">*"
+                "text": "<" + message.url + "|" + message.description + ">*, Author: " + message.author + ", ID: " + str(message.id) + "\n Tags: " + (" ".join(message.tags))
             }
-        })
-
-        payload["blocks"].append({
-            "type": "context",
-            "elements": [
-                {
-                    "type": "mrkdwn",
-                    "text": "Author: " + message.author + " | ID: " + str(message.id) + "\n Tags: " + (" ".join(message.tags))
-                }
-            ]
         })
     return payload
 
