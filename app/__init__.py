@@ -90,8 +90,10 @@ def get_json():
         else:
             try:
                 message_id = int(tokens[0])
+                app.logger.info("user provided message_id: {}".format(message_id))
             except ValueError:
                 response_payload = 'The message id was not an integer.'
+                return jsonify({'message': response_payload})
 
             # get the tag, create tag if it doesn't exist
             try:
@@ -105,8 +107,12 @@ def get_json():
                 response_payload = 'New tag creation failed.'
 
             try:
+                # TODO: this is somehow getting an empty message or something
                 message = db.session.query(models.SlackMessage).get(message_id)
-                # TODO: add the tag to the message relationship
+                if not message:
+                    raise
+            except Exception as e:
+                response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first. {}'.format(e)
                 for mtag in message.tags:
                     if mtag.name == tag.name:
                         response_payload = 'Tag already found on message.'
@@ -116,7 +122,7 @@ def get_json():
                     db.session.commit()
                     response_payload = 'Tag {} was added to message {}.'.format(tag.name, message_id)
             except Exception as e:
-                response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first. {}'.format(e)
+                response_payload = 'Some unidentified issue in tagging {}'.format(e)
         # package it into a response
         response_payload = jsonify({ 'message': response_payload })
 
