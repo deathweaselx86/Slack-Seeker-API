@@ -237,7 +237,7 @@ def seeker_save_tag():
 
 def seeker_show_no_tag(messages):
     return {
-        "blocks": show_message_urls(messages)
+        "blocks": show_messages(messages)
     }
 
 def show_messages(messages):
