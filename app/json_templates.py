@@ -165,7 +165,7 @@ def seeker_search(terms, message_q):
             "elements": [
                 {
                     "type": "mrkdwn",
-                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " message.id + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
+                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + message.id + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
                 }
             ]
         })
