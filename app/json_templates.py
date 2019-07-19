@@ -216,7 +216,7 @@ def seeker_already_save(message):
            {
                "type": "section",
                "text": {
-                   "type": "mrkdown",
+                   "type": "mrkdwn",
                    "text": "*Your message is already shared, here it is: *"
                }
            },
