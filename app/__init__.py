@@ -101,10 +101,10 @@ def get_json():
                 tag = db.session.query(models.Tag).filter(models.Tag.name == tokens[1]).first()
                 if not tag:
                     tag = models.Tag(tokens[1])
-                    db.session.add(new_tag)
+                    db.session.add(tag)
                     db.session.commit()
-            except:
-                response_payload = 'New tag creation failed.'
+            except Exception as e:
+                response_payload = 'New tag creation failed {}'.format(e)
 
             try:
                 # TODO: this is somehow getting an empty message or something
