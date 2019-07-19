@@ -49,7 +49,7 @@ def searchMessageByTags(terms, tags):
         # Create a Message object
         message = Message(url=msg.url,
                         description=msg.description,
-                        message_text=message_text,                          
+                        message_text=msg.message_text,                          
                         score=0,
                         tags=msg.tags,
                         author=msg.author,
