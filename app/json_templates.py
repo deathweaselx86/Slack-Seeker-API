@@ -209,6 +209,27 @@ def seeker_save(message_URL, tags, description):
         }]
     }
 
+def seeker_already_save(message):
+    return {
+        "blocks": [
+           {
+               "type": "section",
+               "text": {
+                   "type": "mrkdown",
+                   "text": "*Your message is already shared, here it is: *"
+               }
+           },
+           {
+            "type": "context",
+            "elements": [{
+                "type": "mrkdwn",
+                "text": "<" + message.url + "|link> *" + message.description + "* added by " + message.annotator + ", id: " + str(
+                    message.id) + " , tags: " + " ".join(tag_names) + "\n\t\tMessage: " + message.message_text
+            }]
+           }
+        ]
+    }
+
 def seeker_search(terms, message_q):
     payload = {"blocks": [{
         "type": "section",

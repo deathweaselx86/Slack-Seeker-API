@@ -209,12 +209,17 @@ def get_json():
         annotator = request.form['user_name']
         # author = 'test'
 
-        save_json_template = json_templates.seeker_save(message_Url, tags, description)
-        helper.saveMessage(url=message_Url,
-                            description=description,
-                            message_text=message_text,
-                            tags=tags,
-                           annotator=annotator)
+        message = models.SlackMessage.query.filter_by(url=message_Url)
+        save_json_template = {}
+        if message:
+            save_json_template = json_templates.seeker_already_save(message)
+        else:
+            save_json_template = json_templates.seeker_save(message_Url, tags, description)
+            helper.saveMessage(url=message_Url,
+                                description=description,
+                                message_text=message_text,
+                                tags=tags,
+                                annotator=annotator)
         response_payload = jsonify(save_json_template)
     
     elif parsed_payload['command'] == 'search':
