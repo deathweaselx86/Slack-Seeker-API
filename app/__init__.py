@@ -100,7 +100,8 @@ def get_json():
                 # return first or None object if none
                 tag = db.session.query(models.Tag).filter(models.Tag.name == tokens[1]).first()
                 if not tag:
-                    tag = models.Tag(tokens[1])
+                    tag = models.Tag()
+                    tag.name=tokens[1]
                     db.session.add(tag)
                     db.session.commit()
             except Exception as e:
@@ -117,7 +118,6 @@ def get_json():
                 for mtag in message.tags:
                     if mtag.name == tag.name:
                         response_payload = 'Tag already found on message.'
-                        break
                 else:
                     message.tags.append(tag)
                     db.session.commit()
