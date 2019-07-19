@@ -25,7 +25,7 @@ def searchMessage(terms):
                         tags=message.tags,
                         author=message.author,
                         annotator=message.annotator)
-        text = msg.description.lower() + " " + msg.message_text.lower()
+        text = msg.description.lower() + " " + msg.message_text.lower() + " " + msg.annotator.lower()
         tags = set()
         for tag in msg.tags:
             tags.add(tag)
@@ -65,7 +65,7 @@ def searchMessageByTags(terms, tags):
     # Now iterate through the list of messages that have relevant tag
     # and score them based on the terms in its description
     for message in messages:
-        text = message.description.lower() + " " + message.message_text.lower()
+        text = message.description.lower() + " " + message.message_text.lower() + " " + message.annotator.lower()
         for term in terms:
             if term in text:
                 message.setScore(message.getScore() + 1)
