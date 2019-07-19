@@ -146,32 +146,28 @@ def seeker_show(tag, message_urls):
         "blocks": show_message_urls(tag, message_urls)
     }
 
-def show_message_urls(tag, message_urls):
-    message_blocks = [{
+def show_message_urls(tag, messages):
+    payload = {"blocks": [{
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": "Here are the Slack messages with the tag `" + tag + "`. Help your coworkers out and leave a thumbs up on the messages that were helpful!"
+            "text": "Here are the messages we found for \"" + (" ".join(tag)) + "\":"
         }
-    }]
-    for url in message_urls:
-        message_blocks.append({
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "URL: " + url.url
-            }
-            # "accessory": {
-            #     "type": "button",
-            #     "text": {
-            #         "type": "plain_text",
-            #         "text": ":+1:",
-            #         "emoji": True
-            #     },
-            #     "value": "SOME_VALUE"
-            # }
+    }]}
+    while not messages.empty():
+        message = messages.get()
+
+        payload["blocks"].append({
+            "type": "context",
+            "elements": [
+                {
+                    "type": "mrkdwn",
+                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(
+                        message.id) + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
+                }
+            ]
         })
-    return message_blocks
+    return payload
 
 # def url_string_or_slackmessage(url):
 #     return url if isinstance(url, str) else url.url
