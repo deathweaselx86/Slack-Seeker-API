@@ -213,6 +213,7 @@ def get_json():
     
     elif parsed_payload['command'] == 'search':
         terms = parsed_payload['payload']
+
         terms[0] = terms[0].strip("\"").strip("\u201c").strip("\u201d")
         terms[-1] = terms[-1].strip("\"").strip("\u201c").strip("\u201d")
         message_q = helper.searchMessage(terms)
