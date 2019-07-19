@@ -83,7 +83,7 @@ def get_json():
 
     # tag an existing message
     elif parsed_payload['command'] == 'tag':
-        response_payload = 'undefined errror in tag'
+        response_payload = 'undefined error in tag'
         tokens = parsed_payload['payload']
         if len(tokens) != 2:
             response_payload = 'Syntax for tagging and untagging is /seeker tag <tag> <message_id>'
@@ -113,6 +113,7 @@ def get_json():
                     raise
             except Exception as e:
                 response_payload = 'Message id was not found in the seeker database, try a seeker save on the message URL first. {}'.format(e)
+            try:
                 for mtag in message.tags:
                     if mtag.name == tag.name:
                         response_payload = 'Tag already found on message.'
