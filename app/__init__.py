@@ -100,7 +100,8 @@ def get_json():
                 # return first or None object if none
                 tag = db.session.query(models.Tag).filter(models.Tag.name == tokens[1]).first()
                 if not tag:
-                    tag = models.Tag(tokens[1])
+                    tag = models.Tag()
+                    tag.name=tokens[1]
                     db.session.add(tag)
                     db.session.commit()
             except Exception as e:
@@ -117,7 +118,6 @@ def get_json():
                 for mtag in message.tags:
                     if mtag.name == tag.name:
                         response_payload = 'Tag already found on message.'
-                        break
                 else:
                     message.tags.append(tag)
                     db.session.commit()
@@ -177,7 +177,7 @@ def get_json():
         # response_payload = jsonify({"list of message urls":message_urls})
 
     # /seeker save
-    elif parsed_payload['command'] == 'save':
+    elif parsed_payload['command'] in ['save', 'add', 'new', 'create']:
         tokens = parsed_payload['payload']
         message_Url = tokens["message_URL"]
         message_arr = message_Url.split('/')
@@ -213,9 +213,24 @@ def get_json():
     
     elif parsed_payload['command'] == 'search':
         terms = parsed_payload['payload']
+
         terms[0] = terms[0].strip("\"").strip("\u201c").strip("\u201d")
         terms[-1] = terms[-1].strip("\"").strip("\u201c").strip("\u201d")
-        message_q = helper.searchMessage(terms)
+        message_q = Q.PriorityQueue()
+        if "|" in terms:
+            tags = []
+            tokens = []
+            start_index = -1
+            for i in range(len(terms)):
+                if terms[i] == "|" and start_index == -1:
+                    start_index = i
+                if start_index == -1:
+                    tokens.append(terms[i])
+                elif i > start_index:
+                    tags.append(terms[i])
+            message_q = helper.searchMessageByTags(tokens, tags)
+        else:
+            message_q = helper.searchMessage(terms)
         search_json_template = json_templates.seeker_search(terms, message_q)
         response_payload = jsonify(search_json_template)
 

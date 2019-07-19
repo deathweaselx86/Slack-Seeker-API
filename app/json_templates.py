@@ -55,7 +55,7 @@ def seeker_help():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "`/seeker search \"[text]\" [tag 1] [tag 2] [tag 3]...`"
+                    "text": "`/seeker search \"[text]\" [tag1] [tag2] [tag3]...`"
                 }
             },
             {
@@ -74,7 +74,7 @@ def seeker_help():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "`/seeker save [message_URL] [tag1] [tag 2] [tag 3]... | [description]`"
+                    "text": "`/seeker save [message_URL] [tag1] [tag2] [tag3]... | [description]`"
                 }
             },
             {
@@ -82,7 +82,45 @@ def seeker_help():
                 "elements": [
                     {
                         "type": "mrkdwn",
-                        "text": "Save a message to seeker."
+                        "text": "Saves the given message with the given tags so it can be queried later."
+                    }
+                ]
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "`/seeker tag [message_id] [tag]`"
+                }
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "Adds a tag to a given saved message."
+                    }
+                ]
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "`/seeker untag [message_id] [tag]`"
+                }
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "Removes a tag from a given message."
                     }
                 ]
             }
@@ -161,11 +199,13 @@ def seeker_search(terms, message_q):
         message = message_q.get()
 
         payload["blocks"].append({
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "<" + message.url + "|" + message.description + ">*, Author: " + message.author + ", ID: " + str(message.id) + "\n Tags: " + (" ".join(message.tags))
-            }
+            "type": "context",
+            "elements": [
+                {
+                    "type": "mrkdwn",
+                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(message.id) + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
+                }
+            ]
         })
     return payload
 

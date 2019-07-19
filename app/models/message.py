@@ -1,8 +1,9 @@
 from app.models import Tag
 class Message:
-    def __init__(self, id, url, description, tags, score, author, annotator):
+    def __init__(self, id, url, description, message_text, tags, score, author, annotator):
         self.id = id
         self.description = description
+        self.message_text = message_text
         self.score = score
         self.tags = []
         for tag in tags:

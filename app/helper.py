@@ -9,6 +9,7 @@ from string import ascii_letters, digits
 def searchMessage(terms):
     q = Q.PriorityQueue()
     messages = SlackMessage.query.all()
+    terms = strip_terms(terms)
 
     '''
     Create a new Message object here to put in the queue
@@ -19,11 +20,12 @@ def searchMessage(terms):
         msg = Message(id=message.id,
                         url=message.url,
                         description=message.description,
+                        message_text=message.message_text,
                         score=0,
                         tags=message.tags,
                         author=message.author,
                         annotator=message.annotator)
-        text = msg.description.lower()
+        text = msg.description.lower() + " " + msg.message_text.lower()
         tags = set()
         for tag in msg.tags:
             tags.add(tag)
@@ -33,39 +35,42 @@ def searchMessage(terms):
             for tag in tags:
                 if term in tag or tag in term:
                     msg.setScore(msg.getScore() + 5)
-        q.put(msg)
+        if msg.getScore() > 0:
+            q.put(msg)
     app.logger.info(q)
     return q
 
-# def searchMessageByTag(terms, tags):
-#     q = Q.PriorityQueue()
-#     db_messages = SlackMessage.query.all()
-#     messages = []
-#     # Iterate through each message in the database
-#     for msg in db_messages:
-#         # Create a Message object
-#         message = Message(url=msg.url,
-#                         description=msg.description,
-#                         score=0,
-#                         tags=msg.tags,
-#                         author=msg.author,
-#                         annotator=msg.annotator)
-#         # Check if the Message object has any tag that's in the query tags
-#         for tag in message.tags:
-#             # If so add the message into the messages list
-#             if tag in tags:
-#                 messages.append(message)
-#                 break
+def searchMessageByTags(terms, tags):
+    q = Q.PriorityQueue()
+    db_messages = SlackMessage.query.all()
+    messages = []
+    # Iterate through each message in the database
+    for msg in db_messages:
+        # Create a Message object
+        message = Message(url=msg.url,
+                        description=msg.description,
+                        message_text=msg.message_text,                          
+                        score=0,
+                        tags=msg.tags,
+                        author=msg.author,
+                        annotator=msg.annotator)
+        # Check if the Message object has any tag that's in the query tags
+        for tag in message.tags:
+            # If so add the message into the messages list
+            if tag in tags:
+                messages.append(message)
+                break
     
-#     # Now iterate through the list of messages that have relevant tag
-#     # and score them based on the terms in its description
-#     for message in messages:
-#         text = message.description
-#         for term in terms:
-#             if term in text:
-#                 message.setScore(message.getScore() + 1)
-#         q.put(message)
-#     return q
+    # Now iterate through the list of messages that have relevant tag
+    # and score them based on the terms in its description
+    for message in messages:
+        text = message.description.lower() + " " + message.message_text.lower()
+        for term in terms:
+            if term in text:
+                message.setScore(message.getScore() + 1)
+        if message.getScore() > 0:
+            q.put(message)
+    return q
     
 def saveMessage(url, description, message_text, annotator, tags, author="None"):
     db_tags = []
@@ -127,7 +132,7 @@ def strip_terms(terms):
 
     terms - list of strings
     '''
-    allowed_glyphs = ascii_letters + digits
+    allowed_glyphs = ascii_letters + digits + "'" 
 
     stripped_terms = []
     for term in terms:
