@@ -234,3 +234,39 @@ def seeker_save_desc():
 
 def seeker_save_tag():
     return '''{"type": "section","text": {"type": "mrkdwn","text": "Great! Now assign a tag to this Slack message.If the tag hasn't been created yet, we'll create it for you."}},]'''
+
+def seeker_show_no_tag(messages):
+    return {
+        "blocks": show_message_urls(messages)
+    }
+
+def show_messages(messages):
+    message_blocks = [{
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": ""
+        }
+    }]
+    for message in messages:
+        tag_names=[]
+        for tag in message.tags:
+            tag_names.append(tag.name)
+        message_blocks.append({
+            "type": "context",
+            "elements": [{
+                "type": "mrkdwn",
+                "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(
+                    message.id) + " , tags: " + " ".join(tag_names) + "\n\t\t" + message.message_text
+            }]
+            # "accessory": {
+            #     "type": "button",
+            #     "text": {
+            #         "type": "plain_text",
+            #         "text": ":+1:",
+            #         "emoji": True
+            #     },
+            #     "value": "SOME_VALUE"
+            # }
+        })
+    return message_blocks

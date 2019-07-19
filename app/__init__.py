@@ -168,6 +168,12 @@ def get_json():
 
     elif parsed_payload['command'] == 'show':
         tokens = parsed_payload['payload']
+        if len(tokens) == 0:
+            messages = helper.get_all_messages()
+            json_template = json_templates.seeker_show_no_tag(messages)
+            response_payload = jsonify(json_template)
+            return response_payload
+
         tag = tokens[0]
         message_urls = helper.get_all_messages_by_tag(tag)
         app.logger.info(message_urls)

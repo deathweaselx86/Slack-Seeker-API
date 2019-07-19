@@ -155,3 +155,7 @@ def get_all_messages_by_tag(tag):
 
 
     return messages_by_tag
+
+def get_all_messages():
+    messages = SlackMessage.query.all()
+    return messages
