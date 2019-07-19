@@ -55,7 +55,7 @@ def seeker_help():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "`/seeker search \"[text]\" [tag 1] [tag 2] [tag 3]...`"
+                    "text": "`/seeker search \"[text]\" [tag1] [tag2] [tag3]...`"
                 }
             },
             {
@@ -74,7 +74,7 @@ def seeker_help():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "`/seeker save [message_URL] [tag1] [tag 2] [tag 3]... | [description]`"
+                    "text": "`/seeker save [message_URL] [tag1] [tag2] [tag3]... | [description]`"
                 }
             },
             {
