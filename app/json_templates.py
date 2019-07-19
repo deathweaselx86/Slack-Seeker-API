@@ -259,15 +259,8 @@ def tags_plural(tags):
 
 
 def seeker_show_no_tag(messages):
-    payload = {"blocks": [{
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": ""
-        }
-    }]}
-    while messages:
-        message = messages.get()
+    payload = {"blocks": []}
+    for message in messages:
         tag_names = []
         for tag in message.tags:
             tag_names.append(tag.name)
