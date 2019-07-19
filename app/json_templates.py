@@ -218,7 +218,7 @@ def seeker_search(terms, message_q):
         }
     }]}
 
-    if message_w.empty():
+    if message_q.empty():
         payload["blocks"].append({
             "type": "context",
             "elements": [
