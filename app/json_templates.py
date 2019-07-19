@@ -93,7 +93,7 @@ def seeker_help():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "`/seeker tag` [message_id] [tag]"
+                    "text": "`/seeker tag [message_id] [tag]`"
                 }
             },
             {
@@ -112,7 +112,7 @@ def seeker_help():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "`/seeker untag` [message_id] [tag]"
+                    "text": "`/seeker untag [message_id] [tag]`"
                 }
             },
             {
