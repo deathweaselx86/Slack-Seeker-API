@@ -47,7 +47,8 @@ def searchMessageByTags(terms, tags):
     # Iterate through each message in the database
     for msg in db_messages:
         # Create a Message object
-        message = Message(url=msg.url,
+        message = Message(id=msg.id,
+                        url=msg.url,
                         description=msg.description,
                         message_text=msg.message_text,                          
                         score=0,
