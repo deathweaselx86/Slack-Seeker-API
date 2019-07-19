@@ -154,9 +154,8 @@ def show_message_urls(tag, messages):
             "text": "Here are the messages we found for \"" + (" ".join(tag)) + "\":"
         }
     }]}
-    while not messages.empty():
-        message = messages.get()
 
+    for message in messages:
         payload["blocks"].append({
             "type": "context",
             "elements": [
