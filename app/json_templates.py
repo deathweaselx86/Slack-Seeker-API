@@ -210,6 +210,7 @@ def seeker_save(message_URL, tags, description):
     }
 
 def seeker_already_save(message):
+    tag_names = [t.name for t in message.tags]
     return {
         "blocks": [
            {
