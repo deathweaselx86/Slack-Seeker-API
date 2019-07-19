@@ -236,9 +236,27 @@ def seeker_save_tag():
     return '''{"type": "section","text": {"type": "mrkdwn","text": "Great! Now assign a tag to this Slack message.If the tag hasn't been created yet, we'll create it for you."}},]'''
 
 def seeker_show_no_tag(messages):
-    return {
-        "blocks": show_messages(messages)
-    }
+    payload = {"blocks": [{
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": ""
+        }
+    }]}
+    while not messages.empty():
+        message = messages.get()
+
+        payload["blocks"].append({
+            "type": "context",
+            "elements": [
+                {
+                    "type": "mrkdwn",
+                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(
+                        message.id) + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
+                }
+            ]
+        })
+    return payload
 
 def show_messages(messages):
     message_blocks = [{
