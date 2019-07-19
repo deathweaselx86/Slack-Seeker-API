@@ -183,8 +183,7 @@ def get_json():
         response_payload = jsonify(show_json_template)
         # response_payload = jsonify({"list of message urls":message_urls})
 
-    # /seeker save
-    elif parsed_payload['command'] in ['save', 'add', 'new', 'create']:
+    elif parsed_payload['command'] in ['share', 'save', 'add', 'new', 'create']:
         tokens = parsed_payload['payload']
         message_Url = tokens["message_URL"]
         message_arr = message_Url.split('/')
