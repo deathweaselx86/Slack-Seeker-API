@@ -8,7 +8,7 @@ def parse(text):
     command = tokens[0]
     payload = tokens[1:]
 
-    if command == "save":
+    if command in ['share', 'save', 'add', 'new', 'create']:
         new_payload = retokenize(payload)
         return {
             "command": command,
