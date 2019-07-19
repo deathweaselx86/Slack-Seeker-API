@@ -209,7 +209,7 @@ def get_json():
         annotator = request.form['user_name']
         # author = 'test'
 
-        message = models.SlackMessage.query.filter_by(url=message_Url)
+        message = models.SlackMessage.query.filter_by(url=message_Url).first()
         save_json_template = {}
         if message:
             save_json_template = json_templates.seeker_already_save(message)
