@@ -266,7 +266,7 @@ def seeker_show_no_tag(messages):
             "text": ""
         }
     }]}
-    while not messages.empty():
+    while messages:
         message = messages.get()
         tag_names = []
         for tag in message.tags:
