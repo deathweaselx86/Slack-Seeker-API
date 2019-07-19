@@ -78,6 +78,26 @@ def seeker_help():
                 }
             },
             {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "`/seeker tag [message_id] [tag]"
+                }
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "`/seeker untag [message_id] [tag]"
+                }
+            },
+            {
                 "type": "context",
                 "elements": [
                     {
