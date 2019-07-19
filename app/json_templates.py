@@ -151,18 +151,16 @@ def show_message_urls(tag, messages):
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": "Here are the messages we found for \"" + (" ".join(tag)) + "\":"
+            "text": "Here are the messages we found for \"" + tag + "\":"
         }
     }]}
-
     for message in messages:
         payload["blocks"].append({
             "type": "context",
             "elements": [
                 {
                     "type": "mrkdwn",
-                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(
-                        message.id) + "\n\t\t" + message.message_text
+                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(message.id) + " , tags: " + " ".join(str(message.tags)) + "\n\t\t" + message.message_text
                 }
             ]
         })
