@@ -78,23 +78,22 @@ def seeker_help():
                 }
             },
             {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "Saves the given message with the given tags so it can be queried later."
+                    }
+                ]
+            },
+            {
                 "type": "divider"
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "`/seeker tag [message_id] [tag]"
-                }
-            },
-            {
-                "type": "divider"
-            },
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "`/seeker untag [message_id] [tag]"
+                    "text": "`/seeker tag` [message_id] [tag]"
                 }
             },
             {
@@ -102,7 +101,26 @@ def seeker_help():
                 "elements": [
                     {
                         "type": "mrkdwn",
-                        "text": "Save a message to seeker."
+                        "text": "Adds a tag to a given saved message."
+                    }
+                ]
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "`/seeker untag` [message_id] [tag]"
+                }
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "Removes a tag from a given message."
                     }
                 ]
             }
@@ -185,7 +203,7 @@ def seeker_search(terms, message_q):
             "elements": [
                 {
                     "type": "mrkdwn",
-                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + message.id + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
+                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " + str(message.id) + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
                 }
             ]
         })
