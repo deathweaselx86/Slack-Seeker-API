@@ -161,11 +161,13 @@ def seeker_search(terms, message_q):
         message = message_q.get()
 
         payload["blocks"].append({
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "<" + message.url + "|" + message.description + ">*, Author: " + message.author + ", ID: " + str(message.id) + "\n Tags: " + (" ".join(message.tags))
-            }
+            "type": "context",
+            "elements": [
+                {
+                    "type": "mrkdwn",
+                    "text": "<" + message.url + "|link> *" + message.description + "* by " + message.author + ", id: " message.id + " , tags: " + " ".join(message.tags) + "\n\t\t" + message.message_text
+                }
+            ]
         })
     return payload
 
