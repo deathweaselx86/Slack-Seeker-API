@@ -55,7 +55,7 @@ def seeker_help():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "`/seeker search \"[text]\" [tag1] [tag2] [tag3]...`"
+                    "text": "`/seeker search \"[text]\" | [tag1] [tag2] [tag3]...`"
                 }
             },
             {
