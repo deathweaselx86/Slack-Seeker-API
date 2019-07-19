@@ -9,6 +9,7 @@ from string import ascii_letters, digits
 def searchMessage(terms):
     q = Q.PriorityQueue()
     messages = SlackMessage.query.all()
+    terms = strip_terms(terms)
 
     '''
     Create a new Message object here to put in the queue
@@ -19,11 +20,12 @@ def searchMessage(terms):
         msg = Message(id=message.id,
                         url=message.url,
                         description=message.description,
+                        message_text=message.message_txt,
                         score=0,
                         tags=message.tags,
                         author=message.author,
                         annotator=message.annotator)
-        text = msg.description.lower()
+        text = msg.description.lower() + " " + msg.message_text.lower()
         tags = set()
         for tag in msg.tags:
             tags.add(tag)
@@ -127,7 +129,7 @@ def strip_terms(terms):
 
     terms - list of strings
     '''
-    allowed_glyphs = ascii_letters + digits
+    allowed_glyphs = ascii_letters + digits + "'" 
 
     stripped_terms = []
     for term in terms:
